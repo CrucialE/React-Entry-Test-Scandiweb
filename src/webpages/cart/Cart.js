@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+
 class Cart extends Component {
   render() {
     console.log(this.props)
     return (
-      <div>Cart</div>
+      <div>Iam Cart</div>
     )
   }
 }
 
 const mapStateToProps = (state)=>({
-  items: state.items.items
+  ...state.cartReducer
 })
 
 // const mapDispatchToProps = {}
