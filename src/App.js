@@ -39,7 +39,7 @@ class App extends Component {
                     element={<ProductDetails/>}
                   />
                   <Route path="/productdetails" element={<h3>hallo</h3>} />
-                  <Route path="/cartPage" element={<Cart />} />
+                  <Route path="/cart" element={<Cart />} />
                 </Routes>
         </BrowserRouter>
       </Provider>

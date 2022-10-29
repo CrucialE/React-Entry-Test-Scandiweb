@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components/macro";
 import { COLORS, FONTS } from "../../components/constants";
+import {connect} from 'react-redux'
+import { addToCart } from "actions/cartActions";
 // import ProductSample from "../../../src/assets/icons/product-image.png";
 const ProductDisplayLayout = styled.section`
   width: 86%;
@@ -117,7 +119,7 @@ const Price = styled.h3`
     margin: 10px 0;
   }
 `;
-export default class ProductDetails extends React.Component {
+ class ProductDetails extends React.Component {
   state = {
     selectedColor: "",
     selectedSize: "",
@@ -129,93 +131,123 @@ export default class ProductDetails extends React.Component {
   };
 
   render() {
-    const LOCATION_PARTS = window.location.pathname.split("/");
-    // console.log(location)
-    // console.log(this.props.data.products.)
-    const [, category, id] = LOCATION_PARTS;
-    // console.log(category, id)
-    const CATEGORY_NAME = category.charAt(0).toUpperCase() + category.slice(1);
-    const PRODUCTS_IN_CATEGORY = this.props.data.products.filter((product) =>
-      product.categories.includes(CATEGORY_NAME)
-    );
-    // console.log(PRODUCTS_IN_CATEGORY[id])
-    const PRODUCT = PRODUCTS_IN_CATEGORY[id];
+	const { product: PRODUCT } = this.props;
 
-    return (
-      <>
-        <ProductDisplayLayout>
-          <Gallery>
-            {PRODUCT.gallery.map((image, index) => (
-              <ProductTile
-                key={index.toString()}
-                src={image}
-                onClick={() => this.changeImage(index)}
-                alt="gallery-thumbnails"
-              />
-            ))}
-          </Gallery>
+	return (
+		<>
+			<ProductDisplayLayout>
+				<Gallery>
+					{PRODUCT?.gallery?.map((image, index) => (
+						<ProductTile
+							key={index.toString()}
+							src={image}
+							onClick={() => this.changeImage(index)}
+							alt="gallery-thumbnails"
+						/>
+					))}
+				</Gallery>
+				<ProductImage>
+					<img
+						src={
+							PRODUCT.gallery[this.state.galleryImagePosition]
+						}
+						alt="chosen-item"
+					/>
+				</ProductImage>
+				<ProductInfo>
+					<h1>{PRODUCT.name}</h1>
+					<h2>{PRODUCT.brand}</h2>
+					{PRODUCT?.attributes?.length > 0 &&
+						PRODUCT.attributes.map((attribute, index) => (
+							<div key={index.toString()}>
+								{attribute?.name === "Size" && (
+									<>
+										<h3>Size:</h3>
+										<p>
+											{attribute?.items.map(
+												(size) => (
+													<Size
+														id={size.value}
+														onClick={(
+															event
+														) => {
+															console.log(
+																event.target
+																	.id
+															);
+															// setTimeout(() => {
+															//   console.log(this.state.selectedSize);
+															// }, 1000); tO SET STATE YOU NEED A KEY
+														}}
+														key={size.value}>
+														{size.value}
+													</Size>
+												)
+											)}
+										</p>
+									</>
+								)}
+								{attribute?.name === "Color" && (
+									<ColorSwatch>
+										<h3>Color:</h3>
+										{attribute?.items?.map((color) => {
+											return (
+												<span
+													key={color.value}
+													style={{
+														backgroundColor:
+															color.value,
+													}}
+													onClick={(event) => {
+														this.setState({
+															selectedColor:
+																event.target
+																	.style
+																	.backgroundColor,
+														});
+														setTimeout(() => {
+															console.log(
+																this.state
+																	.selectedColor
+															);
+														}, 2000);
+													}}></span>
+											);
+										})}
+									</ColorSwatch>
+								)}
+							</div>
+						))}
+					<Price>
+						Price:
+						<span>
+							{PRODUCT.prices[0].currency.symbol}
+							{PRODUCT.prices[0].amount}
+							{PRODUCT.prices[0].currency.label}
+						</span>
+					</Price>
 
-          <ProductImage>
-            <img
-              src={PRODUCT.gallery[this.state.galleryImagePosition]}
-              alt="chosen-item"
-            />
-          </ProductImage>
-          <ProductInfo>
-            <h1>{PRODUCT.title}</h1>
-            <h2>{PRODUCT.brand}</h2>
-            <h3>Size:</h3>
-            <p>
-              {PRODUCT.availableSizes.map((size) => (
-                <Size
-                  id={size}
-                  onClick={(event) => {
-                console.log(event.target.id );
-                    // setTimeout(() => {
-                    //   console.log(this.state.selectedSize);
-                    // }, 1000); tO SET STATE YOU NEED A KEY
-                  }}
-                  key={size}
-                >
-                  {size}
-                </Size>
-              ))}
-            </p>
-            <ColorSwatch>
-              <h3>Color:</h3>
-              {PRODUCT.colors.map((color) => {
-                return (
-                  <span
-                    key={color}
-                    style={{ backgroundColor: color }}
-                    onClick={(event) => {
-                      this.setState({
-                        selectedColor: event.target.style.backgroundColor,
-                      });
-                      setTimeout(() => {
-                        console.log(this.state.selectedColor);
-                      }, 2000);
-                    }}
-                  ></span>
-                );
-
-                //when the user clicks on a color swatch:
-                //1. Implement an event
-                //2. The event is triggered on Click of the color from the Color Swatch
-                //3. The color is retrieved from the color item that has been clicked
-                //4. Console the color to find out if it's the right color
-                //5. Then store in the appropriate state
-              })}
-            </ColorSwatch>
-            <Price>
-              Price:<span>${PRODUCT.price.USD}</span>
-            </Price>
-
-            <AddToCartBtn>Add To Cart</AddToCartBtn>
-            <DescriptionText>{PRODUCT.description}</DescriptionText>
-          </ProductInfo>
-        </ProductDisplayLayout>
-      </>
-    );
-  }
+					<AddToCartBtn
+						to="/cart"
+						onClick={() => this.props.addToCart(PRODUCT)}>
+						Add To Cart
+					</AddToCartBtn>
+					<DescriptionText>
+						<div
+							dangerouslySetInnerHTML={{
+								__html: PRODUCT.description,
+							}}></div>
+					</DescriptionText>
+				</ProductInfo>
+			</ProductDisplayLayout>
+		</>
+	);
 }
+}
+
+const mapStateToProps = (state) => ({
+...state.productReducer,
+});
+const mapDispatchToProps = { addToCart };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

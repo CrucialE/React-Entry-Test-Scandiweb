@@ -1,7 +1,7 @@
 import { ADD_TO_CART } from "../actions/types";
 
 const initialState = {
- items:[1]
+ items:[]
 
 }
 
@@ -16,5 +16,4 @@ export default function cartReducer(state =initialState, action){
         return state
   }
 }
-
 
