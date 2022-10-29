@@ -4,6 +4,7 @@ import { COLORS, FONTS } from "../../components/constants";
 import {connect} from 'react-redux'
 import { addToCart } from "actions/cartActions";
 // import ProductSample from "../../../src/assets/icons/product-image.png";
+import {Link} from 'react-router-dom'
 const ProductDisplayLayout = styled.section`
   width: 86%;
   gap: 20px;
@@ -55,7 +56,8 @@ const DescriptionText = styled.div`
   margin-top:18px;
   max-width: fit-content; 
 `;
-const AddToCartBtn = styled.button`
+const AddToCartBtn = styled(Link)`
+text-decoration:none;
   margin-top: 14px;
   background-color: ${COLORS.GREEN};
   font-family: ${FONTS.FAMILIES.RALEWAY};
