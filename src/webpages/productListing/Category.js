@@ -99,7 +99,7 @@ class Category extends Component {
 	};
 
 	componentDidMount() {
-		fetch(`${process.env.REACT_APP_URL}`, {
+		fetch(`http://localhost:4000/graphql`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
