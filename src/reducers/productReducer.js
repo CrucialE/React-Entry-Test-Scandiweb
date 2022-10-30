@@ -5,7 +5,7 @@ const initialState = {
 }
 
 export default function productReducer(state = initialState, action) {
-    // console.log(products)
+
         switch(action.type) {
         case GET_PRODUCT_DETAILS:
             return {

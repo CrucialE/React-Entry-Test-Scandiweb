@@ -52,10 +52,10 @@ const LogoView = styled.div`
 `;
 
 class Navigation extends Component {
-  // constructor(props){
-  //   super(props)
-  //   // console.log(this.props)
-  // }
+constructor(props){
+  super(props)
+  console.log(this.props)
+}
 
   state = {
     category: "",
@@ -64,14 +64,14 @@ class Navigation extends Component {
 
   componentDidMount() {
     // console.log(this.props.navItems)
-    // console.log(this.props.fetchNavItems())
+  //  console.log(this.props.fetchNavItems())
     // store.subscribe(() => console.log(store.getState()));
     // setTimeout(() => {},500)
   }
 
   render() {
     const { navItems } = this.props;
-    // console.log(navItems)
+    console.log(navItems)
     return (
       <>
         <Nav>

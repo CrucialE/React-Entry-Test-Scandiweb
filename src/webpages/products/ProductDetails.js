@@ -65,7 +65,6 @@ text-decoration:none;
   font-weight: ${FONTS.WEIGHTS.LARGER};
   margin-bottom: 40px;
   border: none;
-  width: 100%;
   padding: 10px;
   cursor: pointer;
   color: ${COLORS.WHITE};
@@ -132,9 +131,49 @@ const Price = styled.h3`
     this.setState({ galleryImagePosition: position });
   };
 
-  render() {
-	const { product: PRODUCT } = this.props;
+  componentDidMount(){
+	const query = `query getProductBySlug($slug: String!) {
+		product(id: $slug) {
+			id
+			name
+			inStock
+			gallery
+			description
+			category
+			attributes {
+			  name
+			  items {
+				value
+			  }
+			}
+			prices {
+			  amount
+			  currency {
+				label
+				symbol
+			  }
+			}
+			brand
+		}
+	}`;
+	const variables = { slug: this?.props?.params?.id };
+	fetch(`http://localhost:4000/graphql`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Accept: "application/json",
+		},
+		body: JSON.stringify({ query, variables }),
+	})
+		.then((response) => response.json())
+		.then((result) => this.setState({ product: result.data.product }))
+		.catch((error) => console.log(error));
+}
 
+render() {
+	const PRODUCT = this.state.product || this.props.product;
+	if (PRODUCT?.name)
+		
 	return (
 		<>
 			<ProductDisplayLayout>
@@ -174,8 +213,8 @@ const Price = styled.h3`
 															event
 														) => {
 															console.log(
-																event.target
-																	.id
+																event.target.id
+																	
 															);
 															// setTimeout(() => {
 															//   console.log(this.state.selectedSize);
@@ -244,9 +283,13 @@ const Price = styled.h3`
 			</ProductDisplayLayout>
 		</>
 	);
+	return (
+		<>
+			<h1>Product loading</h1>
+		</>
+	);
 }
 }
-
 const mapStateToProps = (state) => ({
 ...state.productReducer,
 });
