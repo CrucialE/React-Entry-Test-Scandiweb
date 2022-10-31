@@ -15,6 +15,7 @@ export const FONTS = {
     },
     SIZES: {
         FORTY_TWO:'42px',
+        THIRTY:'30px',
         TWENTY_FOUR:'24px',
         EIGHTEEN:'18px',
         SIXTEEN:'16px',

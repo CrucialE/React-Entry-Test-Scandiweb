@@ -85,12 +85,12 @@ const Size = styled.span`
   text-align: center;
   line-height: 28px;
   cursor: pointer;
-
   &:hover {
     background-color: ${COLORS.BLACK};
     color: ${COLORS.WHITE};
   }
 `;
+
 const ColorSwatch = styled.div`
   margin-top: 18px;
   > h3 {
@@ -103,7 +103,9 @@ const ColorSwatch = styled.div`
     display: inline-block;
     height: 36px;
     width: 36px;
-    margin-right: 4px;
+    margin-right: 4px; 
+	text-align:center;
+	line-height:36px;
     border: 1px solid gray;
     border-radius: 1px;
     cursor: pointer;
@@ -135,7 +137,7 @@ const Price = styled.h3`
 	const query = `query getProductBySlug($slug: String!) {
 		product(id: $slug) {
 			id
-			name
+			namegit 
 			inStock
 			gallery
 			description

@@ -39,6 +39,7 @@ const StyledLink = styled(Link)`
 	flex-direction: column;
 	box-sizing: border-box;
 	height: 444px;
+	/* width:356px; */
 	cursor: pointer;
 	padding: 16px;
 	position: relative;
