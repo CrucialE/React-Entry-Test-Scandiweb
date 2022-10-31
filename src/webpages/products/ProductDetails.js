@@ -168,7 +168,7 @@ const Price = styled.h3`
 		body: JSON.stringify({ query, variables }),
 	})
 		.then((response) => response.json())
-		.then((result) => this.setState({ product: result.data.product }))
+		.then((result) => this.setState({ product:result.data.product }))
 		.catch((error) => console.log(error));
 }
 
