@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components/macro";
 import { FONTS, COLORS } from "../../components/constants";
-// import SliderLeft from '../../assets/icons/slider-left.png'
+import Slider1 from '../../assets/icons/slider-left.png'
+import Slider2 from '../../assets/icons/slider-right.png'
 import Hoodie from "../../assets/icons/product-image.png";
 // import {Link} from 'react-router-dom'
 // import {Link} from 'react-router-dom'
@@ -127,25 +128,29 @@ const CartImage = styled.img`
   height: 100%;
   z-index:1;
 `;
-const SliderLeft = styled.span`
+const SliderLeft = styled.img`
   position: absolute; 
-  background: ${COLORS.BLACK};
-  color: ${COLORS.WHITE};
+  background:${COLORS.BLACK};
+  color:${COLORS.WHITE};
   /* border: 2px solid black; */
+  width:18px;
+  height:20px;
   text-align:center;
   right:25px;
   bottom:20px;
   z-index: 2;
+  cursor:pointer;
 `;
 
-const SliderRight = styled.span`
+const SliderRight = styled.img`
   position: absolute;
-  width:16px;
+  width:18px;
   text-align:center;
-  /* height:12px; */
+  height:20px;
   background: ${COLORS.BLACK};
-  color: ${COLORS.WHITE};
+  color:${COLORS.WHITE};
   /* border: 2px solid black; */
+  cursor:pointer;
   right:50px;
   bottom:20px;
   z-index: 2;
@@ -226,8 +231,8 @@ class Cart extends Component {
 
             <ImageContainer>
               <CartImage src={Hoodie}></CartImage>
-              <SliderLeft>+</SliderLeft>
-              <SliderRight>-</SliderRight>
+              <SliderLeft src ={Slider1}></SliderLeft>
+              <SliderRight src={Slider2}></SliderRight>
             </ImageContainer>
           </CartItem>
 
