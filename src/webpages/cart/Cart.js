@@ -222,7 +222,7 @@ class Cart extends Component {
             
            </CheckOutDetails>
            
-           {/* <OrderButton>Order</OrderButton> */}
+          
  </CartDisplayLayout>
     
       
