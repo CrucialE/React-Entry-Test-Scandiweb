@@ -16,7 +16,7 @@ const Inner = styled.section`
 	margin: 0 auto;
 	justify-content:space-between; 
 	align-items:center;
-	height:70px;
+	height:80px;
 	display:flex;
 `
 const Nav = styled.nav`

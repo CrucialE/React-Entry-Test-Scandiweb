@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components/macro";
 import { FONTS, COLORS } from "../../components/constants";
-import Slider1 from '../../assets/icons/slider-left.png'
-import Slider2 from '../../assets/icons/slider-right.png'
+import Slider1 from "../../assets/icons/slider-left.png";
+import Slider2 from "../../assets/icons/slider-right.png";
 import Hoodie from "../../assets/icons/product-image.png";
 import { addToQuantity } from "../../actions/cartActions";
 // import {Link} from 'react-router-dom'
@@ -57,7 +57,7 @@ const PriceLabel = styled.h4`
   color: ${COLORS.BLACK};
   margin-bottom: 20px;
 `;
-const Size = styled.h3`
+const Size = styled.p`
   font-family: ${FONTS.FAMILIES.ROBOTO_CONDENSED};
   font-weight: ${FONTS.WEIGHTS.LARGEST};
   font-size: ${FONTS.SIZES.EIGHTEEN};
@@ -127,33 +127,33 @@ const CartImage = styled.img`
   position: absolute;
   width: 100%;
   height: 100%;
-  z-index:1;
+  z-index: 1;
 `;
 const SliderLeft = styled.img`
-  position: absolute; 
-  background:${COLORS.BLACK};
-  color:${COLORS.WHITE};
+  position: absolute;
+  background: ${COLORS.BLACK};
+  color: ${COLORS.WHITE};
   /* border: 2px solid black; */
-  width:18px;
-  height:20px;
-  text-align:center;
-  right:25px;
-  bottom:20px;
+  width: 18px;
+  height: 20px;
+  text-align: center;
+  right: 25px;
+  bottom: 20px;
   z-index: 2;
-  cursor:pointer;
+  cursor: pointer;
 `;
 
 const SliderRight = styled.img`
   position: absolute;
-  width:18px;
-  text-align:center;
-  height:20px;
+  width: 18px;
+  text-align: center;
+  height: 20px;
   background: ${COLORS.BLACK};
-  color:${COLORS.WHITE};
+  color: ${COLORS.WHITE};
   /* border: 2px solid black; */
-  cursor:pointer;
-  right:50px;
-  bottom:20px;
+  cursor: pointer;
+  right: 50px;
+  bottom: 20px;
   z-index: 2;
 `;
 
@@ -189,7 +189,8 @@ class Cart extends Component {
     tax: 0,
     quantity: 0,
     total: 0,
-    index:'',
+    items: {},
+    index: 0
   };
 
   generateTax = () => {
@@ -200,44 +201,59 @@ class Cart extends Component {
   generateTotalQuantity = () => {};
 
   render() {
-    const items = this.props.items
-        return (
+    const items = this.props.items;
+    return (
       <>
         <CartDisplayLayout>
           <Title>CART</Title>
-          <CartItem>
-            <ItemDescription>
-              <Brand>{ }</Brand>
-              <ProductName>Running Short</ProductName>
-              <PriceLabel>$50</PriceLabel>
-              <Size>
-                <p>Size:</p>
-                <span>X</span>
-                <span>L</span>
-                <span>M</span>
-                <span>XXL</span>
-              </Size>
+          {items?.length > 0 &&
+            items.map((item) => (
+              <CartItem>
+                <ItemDescription>
+                  <Brand>{item.brand}</Brand>
+                  <ProductName>{item.name}</ProductName>
+                  <PriceLabel>
+                    {item.prices[0].currency.symbol}
+                    {item.prices[0].amount}
+                  </PriceLabel>
 
-              <Color>
-                <p>Color:</p>
+                  {items?.attributes?.length > 0 &&
+                    items.attributes.map((attribute, index) => (
+                      <div key={index.toString()}>
+                        {attribute?.name === "Size" && (
+                          <Size>
+                            <p>Size:</p>
+                            {attribute.items.map((size) => (
+                              <span id={size} key={size.value}>
+                                {size.value}
+                              </span>
+                            ))}
+                          </Size>
+                        )}
+                        {/* <Color>
+                <h5>Color:</h5>
                 <span>R</span>
                 <span>G</span>
                 <span>B</span>
               </Color>
-            </ItemDescription>
-            <QuantityIcons>
-             {/* <span onClick={() => this.props.addToQuantity(index)}>+</span>  */}
-              <span>1</span>
-              <span>-</span>
-            </QuantityIcons>
+      */}
+                      </div>
+                    ))}
+                </ItemDescription>
+                <QuantityIcons>
+                   <span onClick={() => this.props.addToQuantity(index)}>+</span> 
+                  <span>+</span>
+                  <span>1</span>
+                  <span>-</span>
+                </QuantityIcons>
 
-            <ImageContainer>
-              <CartImage src={Hoodie}></CartImage>
-              <SliderLeft src ={Slider1}></SliderLeft>
-              <SliderRight src={Slider2}></SliderRight>
-            </ImageContainer>
-          </CartItem>
-
+                <ImageContainer>
+                  <CartImage src={item.gallery[0]}></CartImage>
+                  <SliderLeft src={Slider1}></SliderLeft>
+                  <SliderRight src={Slider2}></SliderRight>
+                </ImageContainer>
+              </CartItem>
+            ))}
           <CheckOutDetails>
             <ul>
               <li>Tax 21%:{this.state.tax}</li>
@@ -257,6 +273,6 @@ const mapStateToProps = (state) => ({
   ...state.cartReducer,
 });
 
-const mapDispatchToProps = {addToQuantity}
+const mapDispatchToProps = { addToQuantity };
 //We are not passing the second argument because at the moment we don't have any action creators to be connected to the Component.
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
