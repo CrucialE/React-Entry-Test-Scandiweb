@@ -127,6 +127,7 @@ const Price = styled.h3`
     selectedColor: "",
     selectedSize: "",
     galleryImagePosition: 0,
+	product:{}
   };
 
   changeImage = (position) => {
@@ -137,7 +138,7 @@ const Price = styled.h3`
 	const query = `query getProductBySlug($slug: String!) {
 		product(id: $slug) {
 			id
-			namegit 
+			name
 			inStock
 			gallery
 			description
@@ -175,8 +176,7 @@ const Price = styled.h3`
 render() {
 	const PRODUCT = this.state.product || this.props.product;
 	if (PRODUCT?.name)
-		
-	return (
+		return (
 		<>
 			<ProductDisplayLayout>
 				<Gallery>

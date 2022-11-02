@@ -15,7 +15,10 @@ export default class CartIcon extends Component {
     
 
     return (
-        <CartImage src={CartIconPath} alt ='Cart-Icon' />
+        <CartImage 
+        src={CartIconPath} 
+        alt ='Cart-Icon' 
+        onClick={() => this.props.toggleMinicart()}/>
     )
   }
 }

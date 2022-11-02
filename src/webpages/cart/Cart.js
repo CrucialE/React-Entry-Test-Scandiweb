@@ -4,6 +4,7 @@ import { FONTS, COLORS } from "../../components/constants";
 import Slider1 from '../../assets/icons/slider-left.png'
 import Slider2 from '../../assets/icons/slider-right.png'
 import Hoodie from "../../assets/icons/product-image.png";
+import { addToQuantity } from "../../actions/cartActions";
 // import {Link} from 'react-router-dom'
 // import {Link} from 'react-router-dom'
 import { connect } from "react-redux";
@@ -188,6 +189,7 @@ class Cart extends Component {
     tax: 0,
     quantity: 0,
     total: 0,
+    index:'',
   };
 
   generateTax = () => {
@@ -198,18 +200,18 @@ class Cart extends Component {
   generateTotalQuantity = () => {};
 
   render() {
-    // console.log(this.props)
-    return (
+    const items = this.props.items
+        return (
       <>
         <CartDisplayLayout>
           <Title>CART</Title>
           <CartItem>
             <ItemDescription>
-              <Brand>Apollo</Brand>
+              <Brand>{ }</Brand>
               <ProductName>Running Short</ProductName>
               <PriceLabel>$50</PriceLabel>
               <Size>
-                <h5>Size:</h5>
+                <p>Size:</p>
                 <span>X</span>
                 <span>L</span>
                 <span>M</span>
@@ -217,14 +219,14 @@ class Cart extends Component {
               </Size>
 
               <Color>
-                <h5>Color:</h5>
+                <p>Color:</p>
                 <span>R</span>
                 <span>G</span>
                 <span>B</span>
               </Color>
             </ItemDescription>
             <QuantityIcons>
-              <span>+</span>
+             {/* <span onClick={() => this.props.addToQuantity(index)}>+</span>  */}
               <span>1</span>
               <span>-</span>
             </QuantityIcons>
@@ -255,6 +257,6 @@ const mapStateToProps = (state) => ({
   ...state.cartReducer,
 });
 
-// const mapDispatchToProps = {}
+const mapDispatchToProps = {addToQuantity}
 //We are not passing the second argument because at the moment we don't have any action creators to be connected to the Component.
-export default connect(mapStateToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

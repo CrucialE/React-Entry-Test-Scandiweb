@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 import { COLORS, FONTS } from "../../components/constants";
 import CircleCartIcon from "../../assets/icons/Circle-Cart-Icon.png";
 import { connect } from "react-redux";
-import { fetchNavItems } from "../../actions/navActions";
+// import { fetchNavItems } from "../../actions/navActions";
 import { setProductDetails } from "../../actions/productActions";
 import { Link } from "react-router-dom";
 const CategoryLayout = styled.main`
@@ -21,7 +21,7 @@ const CategoryName = styled.h1`
 	font-style: normal;
 	line-height: 67.2px;
 	text-transform: capitalize;
-	margin-bottom: 80px;
+	margin-bottom: 103px;
 	padding-top: 20px;
 	padding-bottom: 30px;
 `;
@@ -142,9 +142,9 @@ class Category extends Component {
 			.then((results) => {
 				const categories = results.data.categories;
 				this.setState({ categories: categories });
-				this.props.fetchNavItems(
-					categories.map((category) => category.name)
-				);
+				// this.props.fetchNavItems(
+				// 	categories.map((category) => category.name)
+				// );
 			});
 	}
 
@@ -165,7 +165,7 @@ class Category extends Component {
 	}
 
 	render() {
-		// console.log(this.props);
+		//  console.log(this.props);
 		const { name, products } = this.state.selectedCategory;
 		return (
 			<CategoryLayout>
@@ -213,5 +213,6 @@ export class ProductItem extends Component {
 const mapStateToProps = (state) => ({
 	...state,
 });
-const mapDispatchToProps = { fetchNavItems, setProductDetails };
+const mapDispatchToProps = { setProductDetails };
+//fetchNavItems,
 export default connect(mapStateToProps, mapDispatchToProps)(Category);
