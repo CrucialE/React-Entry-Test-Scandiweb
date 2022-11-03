@@ -4,7 +4,7 @@ import { FONTS, COLORS } from "../../components/constants";
 import Slider1 from "../../assets/icons/slider-left.png";
 import Slider2 from "../../assets/icons/slider-right.png";
 import Hoodie from "../../assets/icons/product-image.png";
-import { addToQuantity } from "../../actions/cartActions";
+import { addToQuantity, reduceToQuantity } from "../../actions/cartActions";
 // import {Link} from 'react-router-dom'
 // import {Link} from 'react-router-dom'
 import { connect } from "react-redux";
@@ -106,7 +106,7 @@ const QuantityIcons = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-right: 24px;
-  > span:not(:nth-child(2)) {
+  > button {
     height: 45px;
     width: 45px;
     text-align: center;
@@ -203,12 +203,11 @@ class Cart extends Component {
   render() {
     const items = this.props.items;
     return (
-      <>
         <CartDisplayLayout>
           <Title>CART</Title>
           {items?.length > 0 &&
-            items.map((item) => (
-              <CartItem>
+            items.map((item, index) => (
+              <CartItem key={index.toString()}>
                 <ItemDescription>
                   <Brand>{item.brand}</Brand>
                   <ProductName>{item.name}</ProductName>
@@ -216,36 +215,26 @@ class Cart extends Component {
                     {item.prices[0].currency.symbol}
                     {item.prices[0].amount}
                   </PriceLabel>
-
-                  {items?.attributes?.length > 0 &&
-                    items.attributes.map((attribute, index) => (
-                      <div key={index.toString()}>
-                        {attribute?.name === "Size" && (
-                          <Size>
+                  {/* {item?.attributes?.length > 0 && item.attributes.map((attribute) => (
+                      {attribute?.name === "Size" && (
+                          <Size key={'size'}>
                             <p>Size:</p>
-                            {attribute.items.map((size) => (
-                              <span id={size} key={size.value}>
-                                {size.value}
-                              </span>
-                            ))}
+                            {attribute.items.map((size) => (<span id={size} key={size.value}>{size.value}</span>))}
                           </Size>
-                        )}
-                        {/* <Color>
-                <h5>Color:</h5>
-                <span>R</span>
-                <span>G</span>
-                <span>B</span>
-              </Color>
-      */}
-                      </div>
-                    ))}
+          )}))}       *
+                                {attribute?.name === "Color" && (
+                        <Color>
+                          <h5>Color:</h5>
+                          {attribute.items.map(color => (<span style={{backgroundColor: color.value}}></span>))}
+                      </Color>
+                    )}
+                                )))}  */}
                 </ItemDescription>
                 <QuantityIcons>
-                   <span onClick={() => this.props.addToQuantity(index)}>+</span> 
-                  <span>+</span>
-                  <span>1</span>
-                  <span>-</span>
-                </QuantityIcons>
+                   <button onClick={() => this.props.addToQuantity(index)}>+</button> 
+                    <span>{item.quantity}</span>
+                    <button onClick={() => this.props.reduceToQuantity(index)}>-</button> 
+                 </QuantityIcons>
 
                 <ImageContainer>
                   <CartImage src={item.gallery[0]}></CartImage>
@@ -264,7 +253,6 @@ class Cart extends Component {
             <OrderButton>Order</OrderButton>
           </CheckOutDetails>
         </CartDisplayLayout>
-      </>
     );
   }
 }
@@ -273,6 +261,6 @@ const mapStateToProps = (state) => ({
   ...state.cartReducer,
 });
 
-const mapDispatchToProps = { addToQuantity };
+const mapDispatchToProps = { addToQuantity, reduceToQuantity };
 //We are not passing the second argument because at the moment we don't have any action creators to be connected to the Component.
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
