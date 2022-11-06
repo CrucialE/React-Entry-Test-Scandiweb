@@ -64,12 +64,27 @@ const LogoView = styled.div`
 `;
 
 const Actions = styled.div`
+	position: relative;
 	display: flex;
 	gap: 15px;
 	justify-content: flex-end;
 	align-items: center;
 	flex: 1;
+	>span {
+		position: absolute;
+		background-color: ${COLORS.BLACK};
+		width: 30px;
+		height: 30px;
+		text-align: center;
+		display: flex;
+		justify-content: center;
+		border-radius: 100%;
+		color: ${COLORS.WHITE};
+		top: -30px;
+		left: 30px;
+	}
 `;
+
 class Navigation extends Component {
 	// constructor(props){
 	//   super(props)
@@ -142,6 +157,7 @@ class Navigation extends Component {
 				<Actions>
 					<CurrencySwitcher />
 					<CartIcon toggleMinicart={this.toggleMinicart} />
+					{/* <span>{this.props.items.length}</span> */}
 				</Actions>
 				{this.state.displayMinicart && (
 					<Modal
@@ -157,6 +173,7 @@ class Navigation extends Component {
 
 const mapStoreToProps = (store) => ({
 	...store.navReducer,
+	...store.cartReducer
 });
 
 const mapDispatchToProps = {

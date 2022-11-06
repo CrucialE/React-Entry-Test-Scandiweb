@@ -10,7 +10,7 @@ const CategoryLayout = styled.main`
 	box-sizing: border-box;
 	overflow: hidden;
 	color: ${COLORS.BLACK};
-	width: 86%;
+	width: 88%;
 	margin: 0 auto;
 	min-height: 100%;
 `;

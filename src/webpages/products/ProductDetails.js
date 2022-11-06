@@ -3,10 +3,9 @@ import styled from "styled-components/macro";
 import { COLORS, FONTS } from "../../components/constants";
 import {connect} from 'react-redux'
 import { addToCart } from "actions/cartActions";
-// import ProductSample from "../../../src/assets/icons/product-image.png";
 import {Link} from 'react-router-dom'
 const ProductDisplayLayout = styled.section`
-  width: 86%;
+  width: 88%;
   gap: 20px;
   display: flex;
   margin: 0 auto;
@@ -57,26 +56,37 @@ const DescriptionText = styled.div`
   max-width: fit-content; 
 `;
 const AddToCartBtn = styled(Link)`
+width:292px;
+height:52px;
+line-height:52px;
+display:inline-block;
 text-decoration:none;
-  margin-top: 14px;
+text-align:center;
+  margin-top: 20px;
   background-color: ${COLORS.GREEN};
   font-family: ${FONTS.FAMILIES.RALEWAY};
   font-size: ${FONTS.SIZES.SIXTEEN};
   font-weight: ${FONTS.WEIGHTS.LARGER};
   margin-bottom: 40px;
   border: none;
-  padding: 10px;
+  padding: 8px;
   cursor: pointer;
   color: ${COLORS.WHITE};
   text-transform: uppercase;
+  > span{
+	font-family:${FONTS.FAMILIES.RALEWAY};
+	font-size:${FONTS.SIZES.SIXTEEN};
+	font-weight:${FONTS.WEIGHTS.LARGER};
+  }
 `;
 const ProductTile = styled.img`
   width: 79px;
   height: 80px;
 `;
-const Size = styled.span`
+const Size = styled.p`
   font-family: ${FONTS.FAMILIES.ROBOTO};
-  font-size: ${FONTS.SIZES.TEN};
+  font-weight:${FONTS.WEIGHTS.LARGEST};
+  font-size: ${FONTS.SIZES.EIGHTEEN};
   border: 1px solid ${COLORS.BLACK};
   width: 40px;
   height: 28px;
@@ -103,7 +113,7 @@ const ColorSwatch = styled.div`
     display: inline-block;
     height: 36px;
     width: 36px;
-    margin-right: 4px; 
+    margin-right:8px; 
 	text-align:center;
 	line-height:36px;
     border: 1px solid gray;
@@ -115,10 +125,11 @@ const Price = styled.h3`
   font-family: ${FONTS.FAMILIES.ROBOTO_CONDENSED};
   font-weight: ${FONTS.WEIGHTS.LARGEST};
   font-size: ${FONTS.SIZES.EIGHTEEN};
+  line-height:18px;
   margin: 10px 0;
   line-height: 18px;
   > span {
-    display: block;
+	display: block;
     margin: 10px 0;
   }
 `;
@@ -205,7 +216,7 @@ render() {
 							<div key={index.toString()}>
 								{attribute?.name === "Size" && (
 									<>
-										<h3>Size:</h3>
+										<p>size:</p>
 										<p>
 											{attribute?.items.map(
 												(size) => (
@@ -232,7 +243,7 @@ render() {
 								)}
 								{attribute?.name === "Color" && (
 									<ColorSwatch>
-										<h3>Color:</h3>
+										<p>Color:</p>
 										{attribute?.items?.map((color) => {
 											return (
 												<span
@@ -273,7 +284,7 @@ render() {
 					<AddToCartBtn
 						to="/cart"
 						onClick={() => this.props.addToCart(PRODUCT)}>
-						Add To Cart
+						<span>Add To Cart</span>
 					</AddToCartBtn>
 					<DescriptionText>
 						<div
