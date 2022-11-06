@@ -1,16 +1,14 @@
 import React, { Component } from "react";
 import styled from "styled-components/macro";
 import { FONTS, COLORS } from "../constants";
-// import {Link} from 'react-router-dom'
-// import {Link} from 'react-router-dom'
 import { connect } from "react-redux";
-import { addToQuantity,reduceToQuantity } from "actions/cartActions";
+import Slider1 from "../../assets/icons/slider-left.png";
+import Slider2 from "../../assets/icons/slider-right.png";
+import { addToQuantity, reduceToQuantity } from "actions/cartActions";
 const MiniCartLayout = styled.aside`
 	width:325px;
 	top:78px;
-	/* min-height:50vh; */
 	height:677px;
-	/* gap: 20px; */
 	display: flex;
 	justify-content:flex-start;
 	flex-direction: column;
@@ -19,7 +17,6 @@ const MiniCartLayout = styled.aside`
 	font-size: ${FONTS.SIZES.TWENTY_FOUR};
 	padding:32px 16px;
 	margin-right:72px; 
-	/* z-index:1000; */
 `;
 
 const Title = styled.h3`
@@ -34,15 +31,14 @@ const Title = styled.h3`
      font-weight:${FONTS.WEIGHTS.NORMAL};
 	 font-size:${FONTS.SIZES.SIXTEEN};
 	 font-family:${FONTS.FAMILIES.RALEWAY};
-
 	}
 `
  const CartItem = styled.div`
 	display: flex;
 	padding: 24px 0;
 	width: 100%;
-	
 `;
+
 const ItemDescription = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -53,7 +49,6 @@ const Brand = styled.h3`
 	font-weight: ${FONTS.WEIGHTS.NORMAL};
 	font-size: ${FONTS.SIZES.SIXTEEN};
 	margin-bottom: 4px;
-
 `;
 const ProductName = styled.h4`
 	font-family: ${FONTS.FAMILIES.RALEWAY};
@@ -66,7 +61,6 @@ const PriceLabel = styled.h4`
 	font-weight: ${FONTS.WEIGHTS.LARGE};
 	font-size: ${FONTS.SIZES.FOURTEEN};
 	line-height:16px;
-
 	color: ${COLORS.BLACK};
 	margin-bottom: 20px;
 `;
@@ -75,7 +69,9 @@ const Size = styled.div`
 	font-weight: ${FONTS.WEIGHTS.MEDIUM};
 	font-size: ${FONTS.SIZES.FOURTEEN};
 	color: ${FONTS.BLACK};
+	> p{
 	margin-bottom:8px;
+	}
 	> span {
 		display: inline-block;
 		font-family: ${FONTS.FAMILIES.SOURCE_SANS_PRO};
@@ -90,8 +86,8 @@ const Size = styled.div`
 		border: 1px solid gray;
 		cursor: pointer;
 		&:hover {
-			background-color: ${COLORS.BLACK};
-			color: ${COLORS.WHITE};
+		 background-color: ${COLORS.BLACK};
+		 color: ${COLORS.WHITE};
 		}
 	}
 `
@@ -101,13 +97,10 @@ const ImageContainer = styled.div`
   width: 325px;
   height: auto;
 `;
-
-
 const CartImage = styled.img`
 	flex: 1;
 	width: 121px;
 	height: 190px;
-	
 `;
 
 const Color = styled.div`
@@ -129,7 +122,6 @@ const Color = styled.div`
 		cursor: pointer;
 	}
 `;
-
 const QuantityIcons = styled.div`
 	display: flex;
 	width: 24px;
@@ -138,7 +130,6 @@ const QuantityIcons = styled.div`
 	justify-content: space-between;
 	margin-right: 8px;
 	`;
-
 	const QtyButton = styled.button`
 		height:24px;
 		width: 24px;
@@ -159,6 +150,30 @@ const CheckOutDetails = styled.div`
 		font-weight: ${FONTS.WEIGHTS.LARGEST};
 	}
 `;
+const SliderLeft = styled.img`
+  position: absolute;
+  background: ${COLORS.BLACK};
+  color: ${COLORS.WHITE};
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  right: 25px;
+  bottom: 20px;
+  z-index: 2;
+  cursor: pointer;
+`;
+const SliderRight = styled.img`
+  position: absolute;
+  width: 24px;
+  text-align: center;
+  height: 24px;
+  background: ${COLORS.BLACK};
+  color: ${COLORS.WHITE};
+  cursor: pointer;
+  right: 50px;
+  bottom: 20px;
+  z-index:2;
+`;
 const CheckOutTotal = styled.div`
 display:flex;
 justify-content:space-between;
@@ -170,13 +185,12 @@ line-height:18px;
 	font-size:${FONTS.SIZES.SIXTEEN};
 	font-weight:${FONTS.WEIGHTS.LARGEST};
 	font-family:${FONTS.FAMILIES.RALEWAY};
-
 }
 `
 const ButtonContainer = styled.div`
 display:flex;
 justify-content:space-between;
-/* align-items:flex-end; */
+align-items:flex-end;
 `
 const ViewBag = styled.button`
 width:140px;
@@ -231,17 +245,15 @@ class Minicart extends Component {
 		  const total = amount * quantity
 		  grandTotal += total
 		})
-	
 		this.setState({total: grandTotal})
 		this.generateTax(grandTotal)
 	  };
-	
-	  generateTotalQuantity = () => {
+
+	   generateTotalQuantity = () => {
 		let quantity = 0;
 		this.props.items.forEach( (item)  => {
 		  quantity += item?.quantity
 		})
-	
 		this.setState({quantity: quantity})
 	  };
 	
@@ -255,16 +267,15 @@ class Minicart extends Component {
 		return (
 			<MiniCartLayout>
 				<Title>My Bag, <span>{this.state.quantity} items</span></Title> 
-				
-				{items?.length > 0 &&
+			{items?.length > 0 &&
             items.map((item, index) => (
               <CartItem key={index.toString()}>
                 <ItemDescription>
                   <Brand>{item.brand}</Brand>
                   <ProductName>{item.name}</ProductName>
                   <PriceLabel>
-                    {item.prices[0].currency.symbol}
-                    {item.prices[0].amount}
+                    <strong>{item.prices[0].currency.symbol}</strong>
+                    <strong>{item.prices[0].amount}</strong>
                   </PriceLabel>
 				  {item?.attributes?.length > 0 &&
 									item.attributes.map((attribute) => (
@@ -301,15 +312,13 @@ class Minicart extends Component {
 											)}
 										</>
 									))}
-                                                  
-                </ItemDescription>
+                        </ItemDescription>
                 <QuantityIcons>
                    <QtyButton onClick={() => {
                     this.props.addToQuantity(index)
                     this.generateTotalAmount()
                     this.generateTotalQuantity()
                     }}>+</QtyButton>
-
                     <span>{item.quantity}</span>
                     <QtyButton onClick={() => {
                       this.props.reduceToQuantity(index)
@@ -320,13 +329,13 @@ class Minicart extends Component {
 
                 <ImageContainer>
                   <CartImage src={item.gallery[0]}></CartImage>
-                  {/* <SliderLeft src={Slider1}></SliderLeft>
-                  <SliderRight src={Slider2}></SliderRight> */}
+                 {/* <SliderLeft src={Slider1} alt = "left-chevron"></SliderLeft>
+                  <SliderRight src={Slider2} alt ="right-chevron"></SliderRight>  */}
                 </ImageContainer>
               </CartItem>
             ))}
           <CheckOutDetails>
-            <CheckOutTotal><p>Total</p><span>{this.state.total}</span></CheckOutTotal>
+            <CheckOutTotal><p><strong>Total</strong></p><strong>{this.state.total}</strong></CheckOutTotal>
             <ButtonContainer>
 			<ViewBag>ViewBag</ViewBag>
             <OrderButton>Checkout</OrderButton>
@@ -336,7 +345,6 @@ class Minicart extends Component {
 		);
 	}
 }
-
 const mapStateToProps = (state) => ({
 	...state.cartReducer,
 });

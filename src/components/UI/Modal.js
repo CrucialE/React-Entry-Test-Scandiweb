@@ -7,7 +7,7 @@ const Wrapper = styled.section`
 	/* padding:32px 16px 32px 16px; */
 	width: 100%;
 	height:100%;
-	background: rgba(0, 0, 0, 0.5);
+	background: rgba(57, 55, 72, 0.22);
 	z-index: 2;
 `;
 export default class Modal extends Component {

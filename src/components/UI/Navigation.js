@@ -3,16 +3,15 @@ import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 import { COLORS, FONTS } from "../constants";
 import CartIcon from "./CartIcon";
-import CurrencySwitcher from "./CurrencySwitcher";
-// import Actions from "./Actions";
 import Logo from "./Logo";
+import CurrencySwitcher from "./CurrencySwitcher";
 import { connect } from "react-redux";
 import { fetchNavItems } from "../../actions/navActions";
 import Modal from "./Modal";
 import Minicart from "./Minicart";
 
 const Inner = styled.section`
-	width: 86%;
+	width: 88%;
 	margin: 0 auto;
 	justify-content:space-between; 
 	align-items:center;
@@ -84,14 +83,8 @@ const Actions = styled.div`
 		left: 30px;
 	}
 `;
-
 class Navigation extends Component {
-	// constructor(props){
-	//   super(props)
-	//   // console.log(this.props)
-	// }
-
-	state = {
+		state = {
 		displayMinicart: false,
 		category: "",
 		navItems: [],
@@ -170,7 +163,6 @@ class Navigation extends Component {
 		);
 	}
 }
-
 const mapStoreToProps = (store) => ({
 	...store.navReducer,
 	...store.cartReducer

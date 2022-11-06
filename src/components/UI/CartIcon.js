@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React,{ Component } from 'react'
 import CartIconPath from '../../assets/icons/Empty-Cart.png'
 import styled from 'styled-components/macro'
 import {connect} from 'react-redux'
 import {COLORS} from '../constants'
-
 const CartImage = styled.img`
   cursor: pointer;
   height:20px;
@@ -35,7 +34,6 @@ class CartIcon extends Component {
     })
     return quantity
   }
-
   render() {
     return (
       <IconWrapper>

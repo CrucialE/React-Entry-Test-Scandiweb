@@ -3,8 +3,6 @@ import styled from "styled-components/macro";
 import { FONTS, COLORS } from "../../components/constants";
 import { connect } from "react-redux";
 import { addToQuantity, reduceToQuantity } from "../../actions/cartActions";
-// import Slider1 from "../../assets/icons/slider-left.png";
-// import Slider2 from "../../assets/icons/slider-right.png";
 const CartDisplayLayout = styled.section`
   width: 88%;
   gap: 20px;
@@ -77,9 +75,9 @@ const Size = styled.p`
 `;
 const Color = styled.div`
   margin-top: 7px;
-  > h3 {
+  > p {
     font-family: ${FONTS.FAMILIES.ROBOTO_CONDENSED};
-    font-weight: ${FONTS.WEIGHTS.LARGER};
+    font-weight: ${FONTS.WEIGHTS.LARGEST};
     font-size: ${FONTS.SIZES.EIGHTEEN};
     margin-bottom: 3px;
   }
@@ -127,64 +125,40 @@ const CartImage = styled.img`
   height: 100%;
   z-index: 1;
 `;
-const SliderLeft = styled.img`
-  position: absolute;
-  background: ${COLORS.BLACK};
-  color: ${COLORS.WHITE};
-  width: 18px;
-  height: 20px;
-  text-align: center;
-  right: 25px;
-  bottom: 20px;
-  z-index: 2;
-  cursor: pointer;
-`;
-
-const SliderRight = styled.img`
-  position: absolute;
-  width: 18px;
-  text-align: center;
-  height: 20px;
-  background: ${COLORS.BLACK};
-  color: ${COLORS.WHITE};
-  cursor: pointer;
-  right: 50px;
-  bottom: 20px;
-  z-index: 2;
-`;
 
 const CheckOutDetails = styled.div`
-  > ul {
-    list-style-type: none;
-  }
-  > li {
+ >p{
     margin: 8px 0;
-    font-size: ${FONTS.FAMILIES.TWENTY_FOUR};
+    font-size: ${FONTS.SIZES.TWENTY_FOUR};
     font-family: ${FONTS.FAMILIES.RALEWAY};
-    font-weight: ${FONTS.WEIGHTS.LARGEST};
-  }
+    font-weight: ${FONTS.WEIGHTS.MEDIUM};
+    > span:last-child{
+      padding:0 10px;
+      font-weight:${FONTS.WEIGHTS.LARGEST};
+      font-family:${FONTS.FAMILIES.RALEWAY};
+      font-size:${FONTS.SIZES.TWENTY_FOUR};
+      margin-bottom: 16px;
+    }
+}
+  
 `;
 const OrderButton = styled.button`
 width:279px;
 height:43px;
-display:inline-block;
 text-align:center;
   text-decoration: none;
   margin-top: 14px;
   background-color: ${COLORS.GREEN};
   font-family: ${FONTS.FAMILIES.RALEWAY};
-  font-size: ${FONTS.SIZES.SIXTEEN};
+  font-size: ${FONTS.SIZES.FOURTEEN};
   font-weight:${FONTS.WEIGHTS.LARGER};
   margin-bottom: 40px;
   border: none;
-  color:${COLORS.WHITE};
   padding: 16px 32px;
   cursor: pointer;
   color: ${COLORS.WHITE};
   text-transform: uppercase;
-  > span{
-    line-height:43px;
-  }
+  
 `;
 
 class Cart extends Component {
@@ -247,7 +221,7 @@ class Cart extends Component {
 										<>
 											{attribute?.name === "Size" && (
 												<Size>
-													<p>size:</p>
+													<p>SIZE:</p>
 													{attribute.items.map(
 														(size) => (
 															<span
@@ -263,7 +237,7 @@ class Cart extends Component {
 											)}
 											{attribute?.name === "Color" && (
 												<Color>
-													<p>Color:</p>
+													<p>COLOR:</p>
 													{attribute.items.map(
 														(color) => (
 															<span
@@ -296,18 +270,15 @@ class Cart extends Component {
 
                 <ImageContainer>
                   <CartImage src={item.gallery[0]}></CartImage>
-                  {/* <SliderLeft src={Slider1}></SliderLeft>
-                  <SliderRight src={Slider2}></SliderRight> */}
-                </ImageContainer>
+                 </ImageContainer>
               </CartItem>
             ))}
           <CheckOutDetails>
-            <ul>
-              <li>Tax 21%:{Number(this.state.tax).toFixed(2)}</li>
-              <li>Quantity:{this.state.quantity}</li>
-              <li>Total: {Number(this.state.total).toFixed(2)}</li>
-            </ul>
-            <OrderButton><span>Order</span></OrderButton>
+              <p>Tax 21%: <span> ${Number(this.state.tax).toFixed(2)}</span></p>
+              <p>Quantity:<span> {this.state.quantity}</span></p>
+              <p>Total:   <span> ${Number(this.state.total).toFixed(2)}</span></p>
+    
+            <OrderButton>Order</OrderButton>
           </CheckOutDetails>
         </CartDisplayLayout>
         
@@ -320,5 +291,4 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = { addToQuantity, reduceToQuantity };
-//We are not passing the second argument because at the moment we don't have any action creators to be connected to the Component.
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

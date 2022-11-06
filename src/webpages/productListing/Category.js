@@ -3,7 +3,6 @@ import styled from "styled-components/macro";
 import { COLORS, FONTS } from "../../components/constants";
 import CircleCartIcon from "../../assets/icons/Circle-Cart-Icon.png";
 import { connect } from "react-redux";
-// import { fetchNavItems } from "../../actions/navActions";
 import { setProductDetails } from "../../actions/productActions";
 import { Link } from "react-router-dom";
 const CategoryLayout = styled.main`
@@ -21,7 +20,7 @@ const CategoryName = styled.h1`
 	font-style: normal;
 	line-height: 67.2px;
 	text-transform: capitalize;
-	margin-bottom: 103px;
+	margin-bottom: 80px;
 	padding-top: 20px;
 	padding-bottom: 30px;
 `;

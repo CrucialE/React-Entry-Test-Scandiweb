@@ -10,16 +10,7 @@ import Cart from "webpages/cart/Cart";
 import store from "./store";
 
 class App extends Component {
-  // constructor(props) {
-  //   super(props)
-  // }
-  componentDidMount() {
-    // console.log(this.props.navItems)
-    // this.props.fetchNavItems()
-    //  store.subscribe(() => console.log(store.getState()));
-  }
-
-  render() {
+    render() {
     return (
       <Provider store={store}>
         <GlobalStyle />
