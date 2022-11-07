@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import styled from "styled-components/macro";
 import { FONTS, COLORS } from "../../components/constants";
 import { connect } from "react-redux";
+import NextCaret from "../../assets/icons/next.png";
+import PreviousCaret from "../../assets/icons/previous.png";
 import { addToQuantity, reduceToQuantity } from "../../actions/cartActions";
+import HeroSlider, { Slide } from "hero-slider";
+
 const CartDisplayLayout = styled.section`
   width: 88%;
   gap: 20px;
@@ -18,7 +22,7 @@ const CartDisplayLayout = styled.section`
 const Title = styled.h2`
   font-family: ${FONTS.FAMILIES.RALEWAY};
   font-weight: ${FONTS.WEIGHTS.LARGEST};
-  font-size:${FONTS.SIZES.THIRTY};
+  font-size: ${FONTS.SIZES.THIRTY};
   color: ${COLORS.BLACK};
   margin-bottom: 35px;
 `;
@@ -107,7 +111,7 @@ const QuantityIcons = styled.div`
     text-align: center;
     line-height: 45px;
     margin-bottom: 4px;
-    background-color:${COLORS.WHITE};
+    background-color: ${COLORS.WHITE};
     border: 1px solid ${COLORS.GRAY};
     cursor: pointer;
   }
@@ -118,6 +122,32 @@ const ImageContainer = styled.div`
   flex: 1;
   width: 200px;
   height: 288px;
+  .hero-slider-previous-container,
+  .hero-slider-next-container {
+    height: 24px !important;
+    width: 24px !important;
+    margin-top: 220px;
+    background: transparent !important;
+  }
+  .hero-slider-previous-container {
+    margin-left: 140px;
+  }
+  .hero-slider-previous-container > .hero-slider-previous-button,
+  .hero-slider-next-container > .hero-slider-next-button {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+  .hero-slider-previous-container > .hero-slider-previous-button {
+    background-image: url(${PreviousCaret});
+  }
+  .hero-slider-next-container > .hero-slider-next-button {
+    background-image: url(${NextCaret});
+  }
+  .hero-slider-previous-button svg,
+  .hero-slider-next-button svg {
+    display: none;
+  }
 `;
 const CartImage = styled.img`
   position: absolute;
@@ -127,38 +157,36 @@ const CartImage = styled.img`
 `;
 
 const CheckOutDetails = styled.div`
- >p{
+  > p {
     margin: 8px 0;
     font-size: ${FONTS.SIZES.TWENTY_FOUR};
     font-family: ${FONTS.FAMILIES.RALEWAY};
     font-weight: ${FONTS.WEIGHTS.MEDIUM};
-    > span:last-child{
-      padding:0 10px;
-      font-weight:${FONTS.WEIGHTS.LARGEST};
-      font-family:${FONTS.FAMILIES.RALEWAY};
-      font-size:${FONTS.SIZES.TWENTY_FOUR};
+    > span:last-child {
+      padding: 0 10px;
+      font-weight: ${FONTS.WEIGHTS.LARGEST};
+      font-family: ${FONTS.FAMILIES.RALEWAY};
+      font-size: ${FONTS.SIZES.TWENTY_FOUR};
       margin-bottom: 16px;
     }
-}
-  
+  }
 `;
 const OrderButton = styled.button`
-width:279px;
-height:43px;
-text-align:center;
+  width: 279px;
+  height: 43px;
+  text-align: center;
   text-decoration: none;
   margin-top: 14px;
   background-color: ${COLORS.GREEN};
   font-family: ${FONTS.FAMILIES.RALEWAY};
   font-size: ${FONTS.SIZES.FOURTEEN};
-  font-weight:${FONTS.WEIGHTS.LARGER};
+  font-weight: ${FONTS.WEIGHTS.LARGER};
   margin-bottom: 40px;
   border: none;
   padding: 16px 32px;
   cursor: pointer;
   color: ${COLORS.WHITE};
   text-transform: uppercase;
-  
 `;
 
 class Cart extends Component {
@@ -169,119 +197,141 @@ class Cart extends Component {
   };
 
   generateTax = (total) => {
-    const tax = total * 0.21
-    this.setState({tax: tax});
+    const tax = total * 0.21;
+    this.setState({ tax: tax });
   };
 
   generateTotalAmount = () => {
-    let grandTotal = 0
-    this.props.items.forEach( (item)  => {
-      const quantity = item.quantity
-      const amount = item.prices[0].amount
-      const total = amount * quantity
-      grandTotal += total
-    })
+    let grandTotal = 0;
+    this.props.items.forEach((item) => {
+      const quantity = item.quantity;
+      const amount = item.prices[0].amount;
+      const total = amount * quantity;
+      grandTotal += total;
+    });
 
-    this.setState({total: grandTotal})
-    this.generateTax(grandTotal)
+    this.setState({ total: grandTotal });
+    this.generateTax(grandTotal);
   };
 
   generateTotalQuantity = () => {
     let quantity = 0;
-    this.props.items.forEach( (item)  => {
-      quantity += item?.quantity
-    })
+    this.props.items.forEach((item) => {
+      quantity += item?.quantity;
+    });
 
-    this.setState({quantity: quantity})
+    this.setState({ quantity: quantity });
   };
 
-  componentDidMount(){
-    this.generateTotalAmount()
-    this.generateTotalQuantity()
+  componentDidMount() {
+    this.generateTotalAmount();
+    this.generateTotalQuantity();
   }
 
   render() {
     const items = this.props.items;
     return (
-        <CartDisplayLayout>
-          <Title>CART</Title>
-          {items?.length > 0 &&
-            items.map((item, index) => (
-              <CartItem key={index.toString()}>
-                <ItemDescription>
-                  <Brand>{item.brand}</Brand>
-                  <ProductName>{item.name}</ProductName>
-                  <PriceLabel>
-                    {item.prices[0].currency.symbol}
-                    {item.prices[0].amount}
-                  </PriceLabel>
+      <CartDisplayLayout>
+        <Title>CART</Title>
+        {items?.length > 0 &&
+          items.map((item, index) => (
+            <CartItem key={index.toString()}>
+              <ItemDescription>
+                <Brand>{item.brand}</Brand>
+                <ProductName>{item.name}</ProductName>
+                <PriceLabel>
+                  {item.prices[0].currency.symbol}
+                  {item.prices[0].amount}
+                </PriceLabel>
 
-                  {item?.attributes?.length > 0 &&
-									item.attributes.map((attribute) => (
-										<>
-											{attribute?.name === "Size" && (
-												<Size>
-													<p>SIZE:</p>
-													{attribute.items.map(
-														(size) => (
-															<span
-																id={size}
-																key={
-																	size.value
-																}>
-																{size.value}
-															</span>
-														)
-													)}
-												</Size>
-											)}
-											{attribute?.name === "Color" && (
-												<Color>
-													<p>COLOR:</p>
-													{attribute.items.map(
-														(color) => (
-															<span
-																style={{
-																	backgroundColor:
-																		color.value,
-																}}></span>
-														)
-													)}
-												</Color>
-											)}
-										</>
-									))}
-	    
-                </ItemDescription>
-                <QuantityIcons>
-                   <button onClick={() => {
-                    this.props.addToQuantity(index)
-                    this.generateTotalAmount()
-                    this.generateTotalQuantity()
-                    }}>+</button>
+                {item?.attributes?.length > 0 &&
+                  item.attributes.map((attribute) => (
+                    <>
+                      {attribute?.name === "Size" && (
+                        <Size>
+                          <p>SIZE:</p>
+                          {attribute.items.map((size) => (
+                            <span id={size} key={size.value}>
+                              {size.value}
+                            </span>
+                          ))}
+                        </Size>
+                      )}
+                      {attribute?.name === "Color" && (
+                        <Color>
+                          <p>COLOR:</p>
+                          {attribute.items.map((color) => (
+                            <span
+                              style={{
+                                backgroundColor: color.value,
+                              }}
+                            ></span>
+                          ))}
+                        </Color>
+                      )}
+                    </>
+                  ))}
+              </ItemDescription>
+              <QuantityIcons>
+                <button
+                  onClick={() => {
+                    this.props.addToQuantity(index);
+                    this.generateTotalAmount();
+                    this.generateTotalQuantity();
+                  }}
+                >
+                  +
+                </button>
 
-                    <span>{item.quantity}</span>
-                    <button onClick={() => {
-                      this.props.reduceToQuantity(index)
-                      this.generateTotalAmount()
-                      this.generateTotalQuantity()
-                      }}>-</button> 
-                 </QuantityIcons>
+                <span>{item.quantity}</span>
+                <button
+                  onClick={() => {
+                    this.props.reduceToQuantity(index);
+                    this.generateTotalAmount();
+                    this.generateTotalQuantity();
+                  }}
+                >
+                  -
+                </button>
+              </QuantityIcons>
 
-                <ImageContainer>
-                  <CartImage src={item.gallery[0]}></CartImage>
-                 </ImageContainer>
-              </CartItem>
-            ))}
-          <CheckOutDetails>
-              <p>Tax 21%: <span> ${Number(this.state.tax).toFixed(2)}</span></p>
-              <p>Quantity:<span> {this.state.quantity}</span></p>
-              <p>Total:   <span> ${Number(this.state.total).toFixed(2)}</span></p>
-    
-            <OrderButton>Order</OrderButton>
-          </CheckOutDetails>
-        </CartDisplayLayout>
-        
+              <ImageContainer>
+                {item.gallery.length > 0 && (
+                  <HeroSlider
+                    height={"288px"}
+                    width={"200px"}
+                    controller={{
+                      initialSlide: 1,
+                      slidingDuration: 500,
+                      slidingDelay: 100,
+                    }}
+                  >
+                    {item.gallery.map((galleryItem) => (
+                      <Slide
+                        background={{
+                          backgroundImageSrc: galleryItem,
+                        }}
+                      />
+                    ))}
+                  </HeroSlider>
+                )}
+              </ImageContainer>
+            </CartItem>
+          ))}
+        <CheckOutDetails>
+          <p>
+            Tax 21%: <span> ${Number(this.state.tax).toFixed(2)}</span>
+          </p>
+          <p>
+            Quantity:<span> {this.state.quantity}</span>
+          </p>
+          <p>
+            Total: <span> ${Number(this.state.total).toFixed(2)}</span>
+          </p>
+
+          <OrderButton>Order</OrderButton>
+        </CheckOutDetails>
+      </CartDisplayLayout>
     );
   }
 }

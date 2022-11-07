@@ -45,21 +45,20 @@ const Gallery = styled.aside`
 const ProductInfo = styled.article`
   padding: 2px;
   flex: 2;
-  `;
+`;
 
 const ProductName = styled.h3`
-    font-size: ${FONTS.FAMILIES.RALEWAY};
-    font-weight: ${FONTS.WEIGHTS.LARGER};
-    font-size: ${FONTS.SIZES.THIRTY};
-    margin-bottom: 16px;
-`
- const Brand = styled.h3`
- 	font-family: ${FONTS.FAMILIES.RALEWAY};
-      font-size: ${FONTS.SIZES.THIRTY};
-      font-weight: ${FONTS.WEIGHTS.MEDIUM};
-      margin-bottom: 43px;
-     
- `
+  font-size: ${FONTS.FAMILIES.RALEWAY};
+  font-weight: ${FONTS.WEIGHTS.LARGER};
+  font-size: ${FONTS.SIZES.THIRTY};
+  margin-bottom: 16px;
+`;
+const Brand = styled.h3`
+  font-family: ${FONTS.FAMILIES.RALEWAY};
+  font-size: ${FONTS.SIZES.THIRTY};
+  font-weight: ${FONTS.WEIGHTS.MEDIUM};
+  margin-bottom: 43px;
+`;
 const ColorSwatch = styled.div`
   margin-top: 18px;
   > h5 {
@@ -92,9 +91,9 @@ const SizeAttributes = styled.div`
     font-family: ${FONTS.FAMILIES.ROBOTO_CONDENSED};
     font-weight: ${FONTS.WEIGHTS.LARGER};
     font-size: ${FONTS.SIZES.EIGHTEEN};
-	margin-bottom:8px;
+    margin-bottom: 8px;
   }
-  >span {
+  > span {
     font-family: ${FONTS.FAMILIES.ROBOTO};
     font-weight: ${FONTS.WEIGHTS.LARGEST};
     font-size: ${FONTS.SIZES.EIGHTEEN};
@@ -153,7 +152,7 @@ const Price = styled.div`
     line-height: 18px;
     line-height: 18px;
     text-transform: uppercase;
-	margin-bottom:10px;
+    margin-bottom: 10px;
   }
 
   > p {
@@ -253,16 +252,15 @@ class ProductDetails extends React.Component {
                       <SizeAttributes>
                         <h5>SIZE:</h5>
                         {attribute?.items.map((size) => (
-                        <span id={size.value}
-							onClick=
-							{(event) => {
-							  console.log(event.target.id);
-							}}
-							key={size.value}>
-                             
-                              {size.value}
-                        </span>
-                          
+                          <span
+                            id={size.value}
+                            onClick={(event) => {
+                              console.log(event.target.id);
+                            }}
+                            key={size.value}
+                          >
+                            {size.value}
+                          </span>
                         ))}
                       </SizeAttributes>
                     )}
