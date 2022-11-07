@@ -106,7 +106,7 @@ class Navigation extends Component {
 		// store.subscribe(() => console.log(store.getState()));
 		// setTimeout(() => {},500)
 
-		fetch(`http://localhost:4000/graphql`, {
+		fetch(`${process.env.REACT_APP_URL}`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
