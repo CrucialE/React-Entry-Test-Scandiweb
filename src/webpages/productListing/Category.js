@@ -38,7 +38,6 @@ const StyledLink = styled(Link)`
 	flex-direction: column;
 	box-sizing: border-box;
 	height: 444px;
-	/* width:356px; */
 	cursor: pointer;
 	padding: 16px;
 	position: relative;
@@ -68,6 +67,7 @@ const StyledLink = styled(Link)`
 	}
 `;
 const StyledFigure = styled.figure``;
+
 const ProductImage = styled.img`
 	height: 354px;
 	width: 330px;
@@ -141,16 +141,13 @@ class Category extends Component {
 			.then((results) => {
 				const categories = results.data.categories;
 				this.setState({ categories: categories });
-				// this.props.fetchNavItems(
-				// 	categories.map((category) => category.name)
-				// );
+				
 			});
 	}
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
-		// console.log(prevState)
+
 		const category = this.props.params?.category || "all";
-		// console.log(category)
 		const extractedCategories = this.state.categories.filter(
 			(myCategory) => myCategory.name === category
 		);
