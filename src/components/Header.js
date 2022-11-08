@@ -4,10 +4,11 @@ import { COLORS } from "./constants";
 import Navigation from "./UI/Navigation";
 const HeaderWrapper = styled.header`
   width: 100%;
-  position: fixed;
+  position:sticky;
   top: 0;
-  margin-bottom: 60px;
+  margin-bottom: 103px;
   background: ${COLORS.WHITE};
+  z-index:1000;
 `;
 export default class Header extends Component {
   render() {
