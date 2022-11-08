@@ -8,7 +8,7 @@ const MiniCartLayout = styled.aside`
   width: 325px;
   right:72px;
   top: 0px;
-  min-height:677px;
+  max-height:fit-content;
   overflow-y: auto;
   color: ${COLORS.BLACK};
   background-color: ${COLORS.WHITE};

@@ -135,11 +135,11 @@ const ImageContainer = styled.div`
   .hero-slider-previous-container > .hero-slider-previous-button,
   .hero-slider-next-container > .hero-slider-next-button {
     width: 24px;
-    height: 24px;
+    height:24px;
     cursor: pointer;
   }
   .hero-slider-previous-container > .hero-slider-previous-button {
-    background-image: url(${PreviousCaret});
+    background-image: url(${NextCaret});
   }
   .hero-slider-next-container > .hero-slider-next-button {
     background-image: url(${NextCaret});
@@ -148,12 +148,6 @@ const ImageContainer = styled.div`
   .hero-slider-next-button svg {
     display: none;
   }
-`;
-const CartImage = styled.img`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
 `;
 
 const CheckOutDetails = styled.div`

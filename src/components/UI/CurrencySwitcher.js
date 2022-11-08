@@ -5,6 +5,7 @@ import { COLORS, FONTS } from "components/constants";
 const Wrapper = styled.div`
   position: relative;
   cursor: pointer;
+  z-index:1000;
   padding: 0 10px;
 `;
 const SelectWrapper = styled.span`
