@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import styled from "styled-components/macro";
 import { FONTS, COLORS } from "../../components/constants";
 import { connect } from "react-redux";
-import NextCaret from "../../assets/icons/next.png";
-import PreviousCaret from "../../assets/icons/previous.png";
+import Caret from "../../assets/icons/next.png";
+// import PreviousCaret from "../../assets/icons/previous.png";
 import { addToQuantity, reduceToQuantity } from "../../actions/cartActions";
 import HeroSlider, { Slide } from "hero-slider";
 
@@ -118,7 +118,7 @@ const QuantityIcons = styled.div`
 `;
 const ImageContainer = styled.div`
   position: relative;
-  padding: 2px;
+  padding:2px;
   flex: 1;
   width: 200px;
   height: 288px;
@@ -126,11 +126,11 @@ const ImageContainer = styled.div`
   .hero-slider-next-container {
     height: 24px !important;
     width: 24px !important;
-    margin-top: 220px;
+    margin-top: 240px;
     background: transparent !important;
   }
   .hero-slider-previous-container {
-    margin-left: 140px;
+    margin-left: 142px;
   }
   .hero-slider-previous-container > .hero-slider-previous-button,
   .hero-slider-next-container > .hero-slider-next-button {
@@ -139,10 +139,10 @@ const ImageContainer = styled.div`
     cursor: pointer;
   }
   .hero-slider-previous-container > .hero-slider-previous-button {
-    background-image: url(${NextCaret});
+    background-image: url(${Caret});
   }
   .hero-slider-next-container > .hero-slider-next-button {
-    background-image: url(${NextCaret});
+    background-image: url(${Caret});
   }
   .hero-slider-previous-button svg,
   .hero-slider-next-button svg {
@@ -332,6 +332,7 @@ class Cart extends Component {
 
 const mapStateToProps = (state) => ({
   ...state.cartReducer,
+  
 });
 
 const mapDispatchToProps = { addToQuantity, reduceToQuantity };

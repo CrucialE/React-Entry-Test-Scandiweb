@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components/macro";
 import ChevrondownIconPath from "../../assets/icons/chevrondown.png";
+import { connect } from "react-redux";
 import { COLORS, FONTS } from "components/constants";
+import { switchCurrency } from "actions/currencyActions";
 const Wrapper = styled.div`
   position: relative;
   cursor: pointer;
@@ -65,99 +67,111 @@ const ListItem = styled.li`
   /* top:12px; */
   background: ${(props) => props.$bg};
 `;
-export default class CurrencySwitcher extends Component {
+class CurrencySwitcher extends Component {
   constructor() {
     super();
     this.wrapper = React.createRef();
     this.currencyItem = React.createRef();
     this.state = {
       currencySwitch: false,
-      selectedCurrency: "$",
+      currencies: [],
+			currencyPosition: 0,
+      selectedCurrency: [],
     };
   }
 
   componentDidMount() {
-    document.addEventListener("mousedown", this.handleClickOutside);
-    document.addEventListener("mousedown", this.handleSelectedCurrency);
-  }
+		document.addEventListener("mousedown", this.handleClickOutside);
+		document.addEventListener("mousedown", this.handleSelectedCurrency);
+		fetch(`${process.env.REACT_APP_URL}`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+			},
+			body: JSON.stringify({
+				query: ` {
+				currencies {
+					label,
+					symbol
+				}
+				}`,
+			}),
+		})
+			.then((response) => response.json())
+			.then((result) => {
+				this.setState({ currencies: result.data.currencies });
+				this.setState({ selectedCurrency: result.data.currencies[0] });
+			})
+			.catch((error) => console.log(error));
+	}
 
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
-    document.removeEventListener("mousedown", this.handleSelectedCurrency);
-  }
+	componentWillUnmount() {
+		document.removeEventListener("mousedown", this.handleClickOutside);
+		document.removeEventListener("mousedown", this.handleSelectedCurrency);
+	}
 
-  toggleCurrencySwitcher = () => {
-    this.setState({ currencySwitch: !this.state.currencySwitch });
-  };
+	toggleCurrencySwitcher = () => {
+		this.setState({ currencySwitch: !this.state.currencySwitch });
+	};
 
-  handleClickOutside = (event) => {
-    if (this.wrapper.current && !this.wrapper.current.contains(event.target)) {
-      this.setState({
-        currencySwitch: false,
-      });
-    }
-  };
+	handleClickOutside = (event) => {
+		if (
+			this.wrapper.current &&
+			!this.wrapper.current.contains(event.target)
+		) {
+			this.setState({
+				currencySwitch: false,
+			});
+		}
+	};
 
-  handleSelectedCurrency = (event) => {
-    if (event.target.classList.contains("currency-item")) {
-      const currency = event.target?.innerText;
-      const currencyParts = currency.split(" ");
-      const symbol = currencyParts[0];
-      // const name = currencyParts[1]
+	onSelectCurrency = (index) => {
+		this.setState({
+			selectedCurrency: this.state.currencies[index],
+			currencyPosition: index,
+		});
+		this.props.switchCurrency({
+			position: index,
+			symbol: this.state.currencies[index].symbol,
+		});
+	};
 
-      this.setState({
-        selectedCurrency: symbol,
-      });
-
-      console.log(symbol);
-    }
-  };
-
-  render() {
-    return (
-      <Wrapper ref={this.wrapper} onClick={this.toggleCurrencySwitcher}>
-        <CurrencySymbol>{this.state.selectedCurrency}</CurrencySymbol>
-        <SelectWrapper>
-          <ChevronIcon
-            src={ChevrondownIconPath}
-            alt="Rotating-Chevron"
-          ></ChevronIcon>
-        </SelectWrapper>
-        <DropdownUl $currencyState={this.state.currencySwitch}>
-          <ListItem
-            className="currency-item"
-            $bg={
-              this.state.selectedCurrency === "$" ? COLORS.BACKGROUND.GRAY : ""
-            }
-          >
-            $ USD
-          </ListItem>
-          <ListItem
-            className="currency-item"
-            $bg={
-              this.state.selectedCurrency === "€" ? COLORS.BACKGROUND.GRAY : ""
-            }
-          >
-            € EUR
-          </ListItem>
-          <ListItem
-            className="currency-item"
-            $bg={
-              this.state.selectedCurrency === "¥" ? COLORS.BACKGROUND.GRAY : ""
-            }
-          >
-            ¥ JYP
-          </ListItem>
-          <ListItem
-            className="currency-item"
-            $bg={
-              this.state.selectedCurrency === "£" ? COLORS.BACKGROUND.GRAY : ""
-            }
-          >
-            £ GBP
-          </ListItem>
-        </DropdownUl>
-      </Wrapper>
-    );
-  }
+	render() {
+		const { currencies } = this.state;
+		return (
+			<Wrapper ref={this.wrapper} onClick={this.toggleCurrencySwitcher}>
+				<CurrencySymbol>
+					{this.state.selectedCurrency.symbol}
+				</CurrencySymbol>
+				<SelectWrapper>
+					<ChevronIcon
+						src={ChevrondownIconPath}
+						alt="Rotating-Chevron"></ChevronIcon>
+				</SelectWrapper>
+				<DropdownUl $currencyState={this.state.currencySwitch}>
+					{currencies.map((currency, index) => (
+						<ListItem
+							key={index.toString()}
+							$bg={
+								this.state.currencyPosition === index
+									? COLORS.BACKGROUND.GRAY
+									: ""
+							}
+							onClick={() => this.onSelectCurrency(index)}>
+							{currency.symbol} {currency.label}
+						</ListItem>
+					))}
+				</DropdownUl>
+			</Wrapper>
+		);
+	}
 }
+
+const mapStateToProps = (store) => ({
+	...store.currencyReducer,
+});
+
+const mapDispatchToProps = { switchCurrency };
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrencySwitcher);

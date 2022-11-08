@@ -237,7 +237,8 @@ class Minicart extends Component {
   }
   render() {
     const items = this.props.items;
-    console.log(this.props);
+    const currency = this.props.currency;
+    // console.log(this.props);
     return (
       <MiniCartLayout>
         <Title>
@@ -250,9 +251,13 @@ class Minicart extends Component {
                 <Brand>{item.brand}</Brand>
                 <ProductName>{item.name}</ProductName>
                 <PriceLabel>
-                  <strong>{item.prices[0].currency.symbol}</strong>
-                  <strong>{item.prices[0].amount}</strong>
-                </PriceLabel>
+									<strong>
+										{item.prices[currency].currency.symbol}
+									</strong>
+									<strong>
+										{item.prices[currency].amount}
+									</strong>
+								</PriceLabel>
                 {item?.attributes?.length > 0 &&
                   item.attributes.map((attribute) => (
                     <>
@@ -305,8 +310,7 @@ class Minicart extends Component {
 
               <ImageContainer>
                 <CartImage src={item.gallery[0]}></CartImage>
-                {/* <SliderLeft src={Slider1} alt = "left-chevron"></SliderLeft>
-                  <SliderRight src={Slider2} alt ="right-chevron"></SliderRight>  */}
+          
               </ImageContainer>
             </CartItem>
           ))}
@@ -328,6 +332,7 @@ class Minicart extends Component {
 }
 const mapStateToProps = (state) => ({
   ...state.cartReducer,
+  ...state.currencyReducer,
 });
 
 const mapDispatchToProps = { addToQuantity, reduceToQuantity };
