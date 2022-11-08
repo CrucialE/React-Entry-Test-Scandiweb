@@ -204,6 +204,7 @@ export class ProductItem extends Component {
 }
 const mapStateToProps = (state) => ({
   ...state,
+  ...state.currencyReducer,
 });
 const mapDispatchToProps = { setProductDetails };
 export default connect(mapStateToProps, mapDispatchToProps)(Category);
