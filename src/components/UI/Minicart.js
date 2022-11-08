@@ -6,9 +6,9 @@ import { addToQuantity, reduceToQuantity } from "actions/cartActions";
 const MiniCartLayout = styled.aside`
   position:absolute;
   width: 325px;
-  right:72px;
+  right:78px;
   top: 0px;
-  max-height:fit-content;
+  max-height:600px;
   overflow-y: auto;
   color: ${COLORS.BLACK};
   background-color: ${COLORS.WHITE};
@@ -250,7 +250,7 @@ class Minicart extends Component {
               <ItemDescription>
                 <Brand>{item.brand}</Brand>
                 <ProductName>{item.name}</ProductName>
-                <PriceLabel>
+                  <PriceLabel>
 									<strong>
 										{item.prices[currency].currency.symbol}
 									</strong>
@@ -319,7 +319,12 @@ class Minicart extends Component {
             <p>
               <strong>Total</strong>
             </p>
-            <strong>{this.state.total}</strong>
+            							
+						<strong>
+							{this.props.symbol}
+							{Number(this.state.total).toFixed(2)}
+						</strong>
+            
           </CheckOutTotal>
           <ButtonContainer>
             <ViewBag>ViewBag</ViewBag>

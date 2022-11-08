@@ -222,118 +222,135 @@ class Cart extends Component {
     this.generateTotalQuantity();
   }
 
-  render() {
-    const items = this.props.items;
-    return (
-      <CartDisplayLayout>
-        <Title>CART</Title>
-        {items?.length > 0 &&
-          items.map((item, index) => (
-            <CartItem key={index.toString()}>
-              <ItemDescription>
-                <Brand>{item.brand}</Brand>
-                <ProductName>{item.name}</ProductName>
-                <PriceLabel>
-                  {item.prices[0].currency.symbol}
-                  {item.prices[0].amount}
-                </PriceLabel>
 
-                {item?.attributes?.length > 0 &&
-                  item.attributes.map((attribute) => (
-                    <>
-                      {attribute?.name === "Size" && (
-                        <Size>
-                          <p>SIZE:</p>
-                          {attribute.items.map((size) => (
-                            <span id={size} key={size.value}>
-                              {size.value}
-                            </span>
-                          ))}
-                        </Size>
-                      )}
-                      {attribute?.name === "Color" && (
-                        <Color>
-                          <p>COLOR:</p>
-                          {attribute.items.map((color) => (
-                            <span
-                              style={{
-                                backgroundColor: color.value,
-                              }}
-                            ></span>
-                          ))}
-                        </Color>
-                      )}
-                    </>
-                  ))}
-              </ItemDescription>
-              <QuantityIcons>
-                <button
-                  onClick={() => {
-                    this.props.addToQuantity(index);
-                    this.generateTotalAmount();
-                    this.generateTotalQuantity();
-                  }}
-                >
-                  +
-                </button>
-
-                <span>{item.quantity}</span>
-                <button
-                  onClick={() => {
-                    this.props.reduceToQuantity(index);
-                    this.generateTotalAmount();
-                    this.generateTotalQuantity();
-                  }}
-                >
-                  -
-                </button>
-              </QuantityIcons>
-
-              <ImageContainer>
-                {item.gallery.length > 0 && (
-                  <HeroSlider
-                    height={"288px"}
-                    width={"200px"}
-                    controller={{
-                      initialSlide: 1,
-                      slidingDuration: 500,
-                      slidingDelay: 100,
-                    }}
-                  >
-                    {item.gallery.map((galleryItem) => (
-                      <Slide
-                        background={{
-                          backgroundImageSrc: galleryItem,
-                        }}
-                      />
-                    ))}
-                  </HeroSlider>
-                )}
-              </ImageContainer>
-            </CartItem>
-          ))}
-        <CheckOutDetails>
-          <p>
-            Tax 21%: <span> ${Number(this.state.tax).toFixed(2)}</span>
-          </p>
-          <p>
-            Quantity:<span> {this.state.quantity}</span>
-          </p>
-          <p>
-            Total: <span> ${Number(this.state.total).toFixed(2)}</span>
-          </p>
-
-          <OrderButton>Order</OrderButton>
-        </CheckOutDetails>
-      </CartDisplayLayout>
-    );
-  }
-}
-
-const mapStateToProps = (state) => ({
-  ...state.cartReducer,
+    render() {
+      const items = this.props.items;
+      const currency = Number(this.props.currency);
+      const currencySymbol = this.props.symbol;
+      return (
+        <CartDisplayLayout>
+          <Title>CART</Title>
+          {items?.length > 0 &&
+            items.map((item, index) => (
+              <CartItem key={index.toString()}>
+                <ItemDescription>
+                  <Brand>{item.brand}</Brand>
+                  <ProductName>{item.name}</ProductName>
+                  <PriceLabel>
+                    {item.prices[currency].currency.symbol}
+                    {item.prices[currency].amount}
+                  </PriceLabel>
   
-});
-
-const mapDispatchToProps = { addToQuantity, reduceToQuantity };
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+                  {item?.attributes?.length > 0 &&
+                    item.attributes.map((attribute) => (
+                      <>
+                        {attribute?.name === "Size" && (
+                          <Size>
+                            <p>SIZE:</p>
+                            {attribute.items.map(
+                              (size) => (
+                                <span
+                                  id={size}
+                                  key={
+                                    size.value
+                                  }>
+                                  {size.value}
+                                </span>
+                              )
+                            )}
+                          </Size>
+                        )}
+                        {attribute?.name === "Color" && (
+                          <Color>
+                            <p>COLOR:</p>
+                            {attribute.items.map(
+                              (color) => (
+                                <span
+                                  style={{
+                                    backgroundColor:
+                                      color.value,
+                                  }}></span>
+                              )
+                            )}
+                          </Color>
+                        )}
+                      </>
+                    ))}
+                </ItemDescription>
+                <QuantityIcons>
+                  <button
+                    onClick={() => {
+                      this.props.addToQuantity(index);
+                      this.generateTotalAmount();
+                      this.generateTotalQuantity();
+                    }}>
+                    +
+                  </button>
+  
+                  <span>{item.quantity}</span>
+                  <button
+                    onClick={() => {
+                      this.props.reduceToQuantity(index);
+                      this.generateTotalAmount();
+                      this.generateTotalQuantity();
+                    }}>
+                    -
+                  </button>
+                </QuantityIcons>
+  
+                <ImageContainer>
+                  {item.gallery.length > 0 && (
+                    <HeroSlider
+                      height={"288px"}
+                      width={"200px"}
+                      controller={{
+                        initialSlide: 1,
+                        slidingDuration: 500,
+                        slidingDelay: 100,
+                      }}>
+                      {item.gallery.map((galleryItem) => (
+                        <Slide
+                          background={{
+                            backgroundImageSrc:
+                              galleryItem,
+                          }}
+                        />
+                      ))}
+                    </HeroSlider>
+                  )}
+                </ImageContainer>
+              </CartItem>
+            ))}
+          <CheckOutDetails>
+            <p>
+              Tax 21%:{" "}
+              <span>
+                {currencySymbol}
+                {Number(this.state.tax).toFixed(2)}
+              </span>
+            </p>
+            <p>
+              Quantity:<span> {this.state.quantity}</span>
+            </p>
+            <p>
+              Total:{" "}
+              <span>
+                {currencySymbol}
+                {Number(this.state.total).toFixed(2)}
+              </span>
+            </p>
+  
+            <OrderButton>Order</OrderButton>
+          </CheckOutDetails>
+        </CartDisplayLayout>
+      );
+    }
+  }
+  
+  const mapStateToProps = (state) => ({
+    ...state.cartReducer,
+    ...state.currencyReducer,
+  });
+  
+  const mapDispatchToProps = { addToQuantity, reduceToQuantity };
+  export default connect(mapStateToProps, mapDispatchToProps)(Cart);
