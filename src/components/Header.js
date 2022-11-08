@@ -6,7 +6,7 @@ const HeaderWrapper = styled.header`
   width: 100%;
   position:sticky;
   top: 0;
-  margin-bottom: 103px;
+  margin-bottom:80px;
   background: ${COLORS.WHITE};
   z-index:1000;
 `;

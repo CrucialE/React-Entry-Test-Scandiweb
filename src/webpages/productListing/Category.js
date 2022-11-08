@@ -20,30 +20,27 @@ const CategoryName = styled.h1`
   font-style: normal;
   line-height: 67.2px;
   text-transform: capitalize;
-  margin-bottom: 80px;
-  padding-top: 20px;
-  padding-bottom: 30px;
+  margin-bottom: 103px;
 `;
 const ProductList = styled.div`
-  position: relative;
-  gap: 24px;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
+  position: relative;
+  gap: 40px;
   background-color: ${COLORS.WHITE};
   padding-bottom: 40px;
 `;
 const StyledLink = styled(Link)`
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
-  height: 444px;
-  cursor: pointer;
-  padding: 16px;
   position: relative;
+  height: 444px;
+  padding: 16px;
+  box-sizing: border-box;
   text-decoration: none;
   border-radius: 5px;
   color: ${COLORS.BLACK};
+  cursor: pointer;
   &:hover {
     box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
     transition: box-shadow 400ms ease-in-out;

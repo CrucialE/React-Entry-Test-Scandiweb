@@ -2,18 +2,17 @@ import React, { Component } from "react";
 import styled from "styled-components/macro";
 import { FONTS, COLORS } from "../constants";
 import { connect } from "react-redux";
-// import Slider1 from "../../assets/icons/slider-left.png";
-// import Slider2 from "../../assets/icons/slider-right.png";
 import { addToQuantity, reduceToQuantity } from "actions/cartActions";
 const MiniCartLayout = styled.aside`
-  position: absolute;
+  /* position:absolute; */
   width: 325px;
+  right:78px;
   top: 78px;
   color: ${COLORS.BLACK};
   background-color: ${COLORS.WHITE};
   font-size: ${FONTS.SIZES.TWENTY_FOUR};
   padding: 32px 16px;
-  margin-right: 72px;
+  /* margin-right: 72px; */
 `;
 
 const Title = styled.h3`
