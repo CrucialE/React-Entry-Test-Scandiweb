@@ -4,16 +4,17 @@ import { FONTS, COLORS } from "../constants";
 import { connect } from "react-redux";
 import { addToQuantity, reduceToQuantity } from "actions/cartActions";
 const MiniCartLayout = styled.aside`
-  /* position:absolute; */
+  position:absolute;
   width: 325px;
-  right:78px;
-  top: 78px;
+  right:72px;
+  top: 0px;
+  min-height:677px;
+  overflow-y: auto;
   color: ${COLORS.BLACK};
   background-color: ${COLORS.WHITE};
   font-size: ${FONTS.SIZES.TWENTY_FOUR};
   padding: 32px 16px;
-  /* margin-right: 72px; */
-`;
+  `;
 
 const Title = styled.h3`
   font-family: ${FONTS.FAMILIES.RALEWAY};
@@ -146,30 +147,7 @@ const CheckOutDetails = styled.div`
     font-weight: ${FONTS.WEIGHTS.LARGEST};
   }
 `;
-const SliderLeft = styled.img`
-  position: absolute;
-  background: ${COLORS.BLACK};
-  color: ${COLORS.WHITE};
-  width: 24px;
-  height: 24px;
-  text-align: center;
-  right: 25px;
-  bottom: 20px;
-  z-index: 2;
-  cursor: pointer;
-`;
-const SliderRight = styled.img`
-  position: absolute;
-  width: 24px;
-  text-align: center;
-  height: 24px;
-  background: ${COLORS.BLACK};
-  color: ${COLORS.WHITE};
-  cursor: pointer;
-  right: 50px;
-  bottom: 20px;
-  z-index: 2;
-`;
+
 const CheckOutTotal = styled.div`
   display: flex;
   justify-content: space-between;

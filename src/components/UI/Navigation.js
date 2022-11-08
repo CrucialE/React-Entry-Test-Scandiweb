@@ -10,6 +10,7 @@ import { fetchNavItems } from "../../actions/navActions";
 import Modal from "./Modal";
 import Minicart from "./Minicart";
 
+
 const Inner = styled.section`
   width: 88%;
   margin: 0 auto;
@@ -147,7 +148,7 @@ class Navigation extends Component {
         </Actions>
         {this.state.displayMinicart && (
           <Modal onClick={this.closeModal}>
-            <Minicart />
+            <Minicart/>
           </Modal>
         )}
       </Inner>
