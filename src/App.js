@@ -10,25 +10,29 @@ import Cart from "webpages/cart/Cart";
 import store from "./store";
 
 class App extends Component {
-    render() {
-    return (
-      <Provider store={store}>
-        <GlobalStyle />
-        <BrowserRouter>
-          <HeaderWrapper />
-          <Routes>
-            <Route path="/" element={<Category />} />
-            <Route
-              path="/:category"
-              element={<ElementWrapper routeElement={Category} />}
-            />
-            <Route path="/:category/:id" element={<ElementWrapper routeElement={ProductDetails} />}/>
-
-            <Route path="/cart" element={<Cart />} />
-          </Routes>
-        </BrowserRouter>
-      </Provider>
-    );
-  }
+	render() {
+		return (
+			<Provider store={store}>
+				<GlobalStyle />
+				<BrowserRouter>
+					<HeaderWrapper />
+					<Routes>
+						<Route path="/" element={<Category />} />
+						<Route
+							path="/:category"
+							element={<ElementWrapper routeElement={Category} />}
+						/>
+						<Route
+							path="/:category/:id"
+							element={
+								<ElementWrapper routeElement={ProductDetails} />
+							}
+						/>
+						<Route path="/cart" element={<Cart />} />
+					</Routes>
+				</BrowserRouter>
+			</Provider>
+		);
+	}
 }
 export default App;

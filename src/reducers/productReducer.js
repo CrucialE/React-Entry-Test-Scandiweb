@@ -1,20 +1,23 @@
-import { GET_PRODUCT_DETAILS, SET_PRODUCT_DETAILS } from "../actions/types";
+import {GET_PRODUCT_DETAILS,SET_PRODUCT_DETAILS} from '../actions/types'
 
 const initialState = {
-  product: {},
-};
+    product: {}
+}
 
 export default function productReducer(state = initialState, action) {
-  switch (action.type) {
-    case GET_PRODUCT_DETAILS:
-      return {
-        product: action.payload,
-      };
-    case SET_PRODUCT_DETAILS:
-      return {
-        product: action.payload,
-      };
-    default:
-      return state;
-  }
+    // console.log(products)
+        switch(action.type) {
+        case GET_PRODUCT_DETAILS:
+            return {
+                product: action.payload
+            }
+        case SET_PRODUCT_DETAILS:
+            return {
+                product: action.payload
+            }
+        default:
+            return state;
+    }
+    
 }
+

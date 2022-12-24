@@ -1,5 +1,5 @@
-import {GET_PRODUCT_DETAILS,SET_PRODUCT_DETAILS} from "./types";
-
+import {GET_PRODUCT_DETAILS} from "./types";
+import { SET_PRODUCT_DETAILS } from "./types";
 
 export const getProductDetails = (product) => {
      console.log(product)
@@ -7,7 +7,6 @@ export const getProductDetails = (product) => {
         type: GET_PRODUCT_DETAILS,
         payload: product
     }
-    
 
 }
 
