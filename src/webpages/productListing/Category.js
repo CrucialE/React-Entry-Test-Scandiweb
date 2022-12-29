@@ -62,6 +62,8 @@ const StyledLink = styled(Link)`
 		opacity: 1;
 	}
 `;
+
+
 const StyledFigure = styled.figure``;
 
 const ProductImage = styled.img`
@@ -155,7 +157,6 @@ class Category extends Component {
 	}
 
 	render() {
-		// console.log(this.props);
 		const { currency, symbol } = this.props.currencyReducer;
 		const { name, products } = this.state.selectedCategory;
 		return (
@@ -183,12 +184,14 @@ export class ProductItem extends Component {
 	render() {
 		const { id, product, category, setProductDetails, currency, symbol } =
 			this.props;
+			if (product?.inStock)
 		return (
 			<StyledLink
 				to={`/${category}/${id}`}
 				onClick={() => setProductDetails({ category, ...product })}>
 				<StyledFigure>
 					<ProductImage src={product.gallery[0]} alt={product.name} />
+					<h1>Out of Stock</h1>
 				</StyledFigure>
 				<Title>
 					{product.name}
