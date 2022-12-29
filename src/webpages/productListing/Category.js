@@ -181,30 +181,37 @@ class Category extends Component {
 	}
 }
 export class ProductItem extends Component {
+	constructor(props) {
+		super(props);
+		console.log(this.props.product.name, "=", this.props.product.inStock);
+	}
 	render() {
 		const { id, product, category, setProductDetails, currency, symbol } =
 			this.props;
 			if (product?.inStock)
 		return (
-			<StyledLink
-				to={`/${category}/${id}`}
-				onClick={() => setProductDetails({ category, ...product })}>
-				<StyledFigure>
-					<ProductImage src={product.gallery[0]} alt={product.name} />
-					<h1>Out of Stock</h1>
-				</StyledFigure>
-				<Title>
-					{product.name}
-					<span>{product.brand}</span>
-				</Title>
-				<PriceTag>
-					<strong>
-						{product.prices[currency].currency.symbol}
-						{product.prices[currency].amount}
-					</strong>
-				</PriceTag>
-			</StyledLink>
-		);
+			 	 <StyledLink
+					to={`/${category}/${id}`}
+					onClick={() => setProductDetails({ category, ...product })}>
+					<StyledFigure>
+						<ProductImage
+							src={product.gallery[0]}
+							alt={product.name}
+						/>
+					</StyledFigure>
+					<Title>
+						{product.name}
+						<span>{product.brand}</span>
+					</Title>
+					<PriceTag>
+						<strong>
+							{product.prices[currency].currency.symbol}
+							{product.prices[currency].amount}
+						</strong>
+					</PriceTag>
+				</StyledLink>
+			);
+
 	}
 }
 const mapStateToProps = (state) => ({
