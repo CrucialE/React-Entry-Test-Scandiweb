@@ -287,12 +287,15 @@ class ProductDetails extends React.Component {
 									{/* {PRODUCT.prices[currency].currency.label} */}
 								</span>
 							</Price>
-
+                            {PRODUCT?.inStock ? (
 							<AddToCartBtn
 								to="/cart"
 								onClick={() => this.props.addToCart(PRODUCT)}>
 								Add To Cart
 							</AddToCartBtn>
+							) : (
+								<h1>OUT OF STOCK</h1>
+							)}
 							<DescriptionText>
 								{parse(PRODUCT.description)}
 							</DescriptionText>
