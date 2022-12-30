@@ -6,15 +6,19 @@ import { addToQuantity, reduceToQuantity } from "actions/cartActions";
 const MiniCartLayout = styled.aside`
 	width:325px;
 	top:78px;
-	height:677px;
+	max-height:min-content;
+	scroll-behavior:smooth;
 	display: flex;
-	justify-content:flex-start;
+	position:absolute;
+	top:0;
+	right:78px;
 	flex-direction: column;
 	color: ${COLORS.BLACK};
 	background-color: ${COLORS.WHITE};
 	font-size: ${FONTS.SIZES.TWENTY_FOUR};
 	padding:32px 16px;
-	margin-right:72px; 
+	margin-right:72px;
+	
 `;
 
 const Title = styled.h3`

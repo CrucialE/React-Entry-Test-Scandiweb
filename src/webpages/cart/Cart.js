@@ -3,7 +3,6 @@ import styled from "styled-components/macro";
 import { FONTS, COLORS } from "../../components/constants";
 import { connect } from "react-redux";
 import NextCaret from "../../assets/icons/next.png";
-import PreviousCaret from "../../assets/icons/previous.png";
 import { addToQuantity, reduceToQuantity } from "../../actions/cartActions";
 import HeroSlider, { Slide } from "hero-slider";
 
@@ -139,7 +138,7 @@ const ImageContainer = styled.div`
 		cursor: pointer;
 	}
 	.hero-slider-previous-container > .hero-slider-previous-button {
-		background-image: url(${PreviousCaret});
+		background-image: url(${NextCaret});
 	}
 	.hero-slider-next-container > .hero-slider-next-button {
 		background-image: url(${NextCaret});

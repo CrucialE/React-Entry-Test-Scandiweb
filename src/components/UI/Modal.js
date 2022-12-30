@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import styled from "styled-components/macro";
 const Wrapper = styled.section`
 	position: fixed;
-	top: 70px;
+	top: 80px;
 	left: 0;
 	width: 100vw;
 	height: 100%;
 	background: rgba(0, 0, 0, 0.5);
-	z-index: 999;
+	z-index:100;
+	
 `;
 export default class Modal extends Component {
 	render() {

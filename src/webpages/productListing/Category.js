@@ -6,21 +6,23 @@ import { setProductDetails } from "../../actions/productActions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 const CategoryLayout = styled.main`
-	box-sizing: border-box;
+	/* box-sizing: border-box; */
 	overflow: hidden;
 	color: ${COLORS.BLACK};
-	width: 86%;
+	width: 88%;
 	margin: 0 auto;
+	
+	
 `;
 const CategoryName = styled.h1`
+	padding:80px 0 103px 0;
 	font-family: ${FONTS.FAMILIES.RALEWAY};
 	font-size: ${FONTS.SIZES.FORTY_TWO};
 	font-weight: ${FONTS.WEIGHTS.MEDIUM};
 	font-style: normal;
 	line-height: 67.2px;
 	text-transform: capitalize;
-	margin-bottom: 103px;
-`;
+	`;
 const ProductList = styled.div`
 	display: flex;
 	flex-wrap: wrap;
@@ -223,7 +225,8 @@ export class ProductItem extends Component {
 			if (product?.inStock)
 		return (
 			 	 
-				  <OutOfStockLink
+			
+				<StyledLink
 					to={`/${category}/${id}`}
 					onClick={() => setProductDetails({ category, ...product })}>
 					<StyledFigure>
@@ -242,9 +245,8 @@ export class ProductItem extends Component {
 							{product.prices[currency].amount}
 						</strong>
 					</PriceTag>
-					</OutOfStockLink>
+				</StyledLink>
 			);
-
 	}
 }
 const mapStateToProps = (state) => ({

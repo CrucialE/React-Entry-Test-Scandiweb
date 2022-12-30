@@ -8,6 +8,7 @@ const Wrapper = styled.div`
 	position: relative;
 	cursor: pointer;
 	padding: 0 10px;
+	z-index:100;
 `;
 const SelectWrapper = styled.span`
 	padding: 8px;

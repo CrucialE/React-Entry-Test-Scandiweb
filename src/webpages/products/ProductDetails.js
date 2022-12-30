@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { addToCart } from "../../actions/cartActions";
 const ProductDisplayLayout = styled.section`
-	width: 86%;
+	width: 88%;
 	gap: 20px;
 	display: flex;
 	margin: 0 auto;
