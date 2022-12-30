@@ -4,15 +4,17 @@ import { FONTS, COLORS } from "../constants";
 import { connect } from "react-redux";
 import { addToQuantity, reduceToQuantity } from "actions/cartActions";
 const MiniCartLayout = styled.aside`
-	position: relative;
-	width: 325px;
-	max-height: 600px;
-	right: 78px;
+	width:325px;
+	top:78px;
+	height:677px;
+	display: flex;
+	justify-content:flex-start;
+	flex-direction: column;
 	color: ${COLORS.BLACK};
 	background-color: ${COLORS.WHITE};
 	font-size: ${FONTS.SIZES.TWENTY_FOUR};
-	padding: 32px 16px;
-	overflow-y: auto;
+	padding:32px 16px;
+	margin-right:72px; 
 `;
 
 const Title = styled.h3`
