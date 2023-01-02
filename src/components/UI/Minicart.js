@@ -105,7 +105,7 @@ const CartImage = styled.img`
 	flex: 1;
 	width: 121px;
 	height: 190px;
-	
+
 `;
 
 const Color = styled.div`
@@ -163,6 +163,7 @@ const CheckOutTotal = styled.div`
 	font-size: ${FONTS.SIZES.SIXTEEN};
 	font-weight: ${FONTS.WEIGHTS.MEDIUM};
 	line-height: 18px;
+	margin:32px 0 32px 0;
 	> span {
 		font-size: ${FONTS.SIZES.SIXTEEN};
 		font-weight: ${FONTS.WEIGHTS.LARGEST};
@@ -173,6 +174,7 @@ const ButtonContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-end;
+	margin-bottom:32px;
 `;
 const ViewBag = styled.button`
 	width: 140px;
