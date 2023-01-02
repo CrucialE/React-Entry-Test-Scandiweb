@@ -15,8 +15,6 @@ margin:0 auto;
 background:${COLORS.WHITE};
 z-index:100;
 
-
-
 `
 export default class Header extends Component {
   render() {

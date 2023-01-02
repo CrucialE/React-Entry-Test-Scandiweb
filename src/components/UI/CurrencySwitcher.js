@@ -8,7 +8,7 @@ const Wrapper = styled.div`
 	position: relative;
 	cursor: pointer;
 	padding: 0 10px;
-	z-index:100;
+	z-index:1001;
 `;
 const SelectWrapper = styled.span`
 	padding: 8px;
@@ -21,12 +21,11 @@ const CurrencySymbol = styled.span`
 `;
 const DropdownUl = styled.ul`
 	position: absolute;
-	padding-top: 4px;
-	margin-top: 10px;
+	padding-top: 16px;
+	/* margin-top: 10px; */
 	background: #fff;
 	z-index: 100;
-	${(props) => {
-		return props.$currencyState
+	${(props) => {return props.$currencyState
 			? css`
 					display: block;
 			  `
@@ -142,7 +141,7 @@ class CurrencySwitcher extends Component {
 		return (
 			<Wrapper ref={this.wrapper} onClick={this.toggleCurrencySwitcher}>
 				<CurrencySymbol>
-					{this.state.selectedCurrency.symbol}
+				 {this.state.selectedCurrency.symbol}
 				</CurrencySymbol>
 				<SelectWrapper>
 					<ChevronIcon
@@ -168,9 +167,7 @@ class CurrencySwitcher extends Component {
 	}
 }
 
-const mapStateToProps = (store) => ({
-	...store.currencyReducer,
-});
+const mapStateToProps = (store) => ({...store.currencyReducer});
 
 const mapDispatchToProps = { switchCurrency };
 

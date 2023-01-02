@@ -17,26 +17,80 @@ const ProductDisplayLayout = styled.section`
 	font-size: ${FONTS.SIZES.TWENTY_FOUR};
 `;
 const ProductImage = styled.div`
-	height: 511px;
-	height: 610px;
+	height:511px;
+	width: 610px;
 	object-fit: cover;
 	flex: 3;
 
 	> img {
 		width: 100%;
 		height: 100%;
-		/* object-fit: cover; is put on the parent */
 	}
 `;
 
 const ProductInfo = styled.article`
 	flex: 2;
-	> h3 {
-		font-size: ${FONTS.FAMILIES.ROBOTO_CONDENSED};
-		font-weight: ${FONTS.WEIGHTS.LARGER};
-		font-size: ${FONTS.SIZES.EIGHTEEN};
-	}
+	
 `;
+
+const ProductName = styled.h1`
+		font-size: ${FONTS.FAMILIES.RALEWAY};
+		font-weight: ${FONTS.WEIGHTS.LARGER};
+		font-size: ${FONTS.SIZES.THIRTY};
+	
+	
+`
+
+const ProductBrand = styled.h1`
+        margin:16px 0 43px 0;
+		font-size: ${FONTS.FAMILIES.RALEWAY};
+		font-weight: ${FONTS.WEIGHTS.LARGE};
+		font-size: ${FONTS.SIZES.THIRTY};
+	
+	
+`
+
+const SizeLabel = styled.h4`
+	font-family: ${FONTS.FAMILIES.ROBOTO_CONDENSED};
+	font-weight: ${FONTS.WEIGHTS.LARGEST};
+	font-size: ${FONTS.SIZES.EIGHTEEN};
+	line-height:18px;
+	text-transform:uppercase;
+	margin-bottom:8px;
+
+`
+
+const PriceLabel = styled.h3`
+	font-family: ${FONTS.FAMILIES.ROBOTO_CONDENSED};
+	font-weight: ${FONTS.WEIGHTS.LARGEST};
+	font-size: ${FONTS.SIZES.EIGHTEEN};
+	margin: 10px 0 10px 0;
+	text-transform:uppercase;
+	line-height: 18px;
+	
+`;
+
+const Price = styled.h4`
+		display: block;
+		font-family: ${FONTS.FAMILIES.RALEWAY};
+		font-size:${FONTS.SIZES.TWENTY_FOUR};
+		font-weight: ${FONTS.WEIGHTS.LARGEST};
+		line-height:18px;
+		margin: 10px 0 20px 0;
+	
+
+`
+
+const ColorLabel = styled.h4`
+font-family: ${FONTS.FAMILIES.ROBOTO_CONDENSED};
+	font-weight: ${FONTS.WEIGHTS.LARGEST};
+	font-size: ${FONTS.SIZES.EIGHTEEN};
+	line-height:18px;
+	text-transform:uppercase;
+	margin-bottom:10px;
+	
+
+`
 const Gallery = styled.aside`
 	display: flex;
 	align-items: flex-end;
@@ -53,10 +107,18 @@ const DescriptionText = styled.div`
 	font-weight: ${FONTS.WEIGHTS.MEDIUM};
 	font-size: ${FONTS.SIZES.SIXTEEN};
 	color: ${COLORS.BLACK};
-	margin-top: 18px;
+	line-height:25.6px;
 	max-width: fit-content;
+	
 `;
+
+
 const AddToCartBtn = styled(Link)`
+	display:inline-block;
+    width:292px;
+	height:52px;
+	line-height:52px;
+	text-align:center;
 	text-decoration: none;
 	margin-top: 20px;
 	background-color: ${COLORS.GREEN};
@@ -65,8 +127,6 @@ const AddToCartBtn = styled(Link)`
 	font-weight: ${FONTS.WEIGHTS.LARGER};
 	margin-bottom: 40px;
 	border: none;
-	width: 100%;
-	padding: 10px;
 	cursor: pointer;
 	color: ${COLORS.WHITE};
 	text-transform: uppercase;
@@ -86,6 +146,7 @@ const Size = styled.span`
 	text-align: center;
 	line-height: 28px;
 	cursor: pointer;
+	
 
 	&:hover {
 		background-color: ${COLORS.BLACK};
@@ -110,17 +171,7 @@ const ColorSwatch = styled.div`
 		cursor: pointer;
 	}
 `;
-const Price = styled.h3`
-	font-family: ${FONTS.FAMILIES.ROBOTO_CONDENSED};
-	font-weight: ${FONTS.WEIGHTS.LARGEST};
-	font-size: ${FONTS.SIZES.EIGHTEEN};
-	margin: 10px 0;
-	line-height: 18px;
-	> span {
-		display: block;
-		margin: 10px 0;
-	}
-`;
+
 class ProductDetails extends React.Component {
 	constructor(props) {
 		super(props);
@@ -203,14 +254,14 @@ class ProductDetails extends React.Component {
 							/>
 						</ProductImage>
 						<ProductInfo>
-							<h1>{PRODUCT.name}</h1>
-							<h2>{PRODUCT.brand}</h2>
+							<ProductName>{PRODUCT.name}</ProductName>
+							<ProductBrand>{PRODUCT.brand}</ProductBrand>
 							{PRODUCT?.attributes?.length > 0 &&
 								PRODUCT.attributes.map((attribute, index) => (
 									<div key={index.toString()}>
 										{attribute?.name === "Size" && (
 											<>
-												<h3>Size:</h3>
+												<SizeLabel>Size:</SizeLabel>
 												<p>
 													{attribute?.items.map(
 														(size) => (
@@ -237,7 +288,7 @@ class ProductDetails extends React.Component {
 										)}
 										{attribute?.name === "Color" && (
 											<ColorSwatch>
-												<h3>Color:</h3>
+												<ColorLabel>Color:</ColorLabel>
 												{attribute?.items?.map(
 													(color) => {
 														return (
@@ -279,14 +330,14 @@ class ProductDetails extends React.Component {
 										)}
 									</div>
 								))}
-							<Price>
+							<PriceLabel>
 								Price:
-								<span>
+								<Price>
 									{PRODUCT.prices[currency].currency.symbol}
 									{PRODUCT.prices[currency].amount}
 									{/* {PRODUCT.prices[currency].currency.label} */}
-								</span>
-							</Price>
+								</Price>
+							</PriceLabel>
                             {PRODUCT?.inStock ? (
 							<AddToCartBtn
 								to="/cart"

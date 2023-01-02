@@ -14,13 +14,15 @@ export const FONTS = {
     
     },
     SIZES: {
-        FORTY_TWO:'42px',
-        TWENTY_FOUR:'24px',
-        EIGHTEEN:'18px',
-        SIXTEEN:'16px',
-        FOURTEEN: '14px',
-        TWELVE:'12px',
-        TEN: '10px',
+        FORTY_TWO:'2.625rem',
+        THIRTY:'1.875rem',
+        TWENTY_FOUR:'1.5rem',
+        EIGHTEEN:'1.125rem',
+        SIXTEEN:'1rem',
+        FOURTEEN: '0.875rem',
+        TWELVE:'0.75rem',
+        TEN: '0.625rem',
     }
 
 }
+

@@ -5,8 +5,9 @@ import { connect } from "react-redux";
 import { addToQuantity, reduceToQuantity } from "actions/cartActions";
 const MiniCartLayout = styled.aside`
 	width:325px;
+	max-height:90vh;
+	overflow-y:auto;
 	top:78px;
-	max-height:min-content;
 	scroll-behavior:smooth;
 	display: flex;
 	position:absolute;
@@ -17,7 +18,7 @@ const MiniCartLayout = styled.aside`
 	background-color: ${COLORS.WHITE};
 	font-size: ${FONTS.SIZES.TWENTY_FOUR};
 	padding:32px 16px;
-	margin-right:72px;
+	
 	
 `;
 
@@ -96,13 +97,15 @@ const Size = styled.div`
 const ImageContainer = styled.div`
 	position: relative;
 	flex: 1;
-	width: 325px;
-	height: auto;
-`;
+	width: 121px;
+	height:190px;
+	
+	`;
 const CartImage = styled.img`
 	flex: 1;
 	width: 121px;
 	height: 190px;
+	
 `;
 
 const Color = styled.div`

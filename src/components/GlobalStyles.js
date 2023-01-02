@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
 
 
   body{
-    min-height:0;
+    min-height:100vh;
     background:${COLORS.BACKGROUND.WHITE};
     color:${COLORS.BLACK};
     font-family:${FONTS.FAMILIES.RALEWAY} 'Sans-Serif';

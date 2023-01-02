@@ -10,13 +10,12 @@ import { fetchNavItems } from "../../actions/navActions";
 import Modal from "./Modal";
 import Minicart from "./Minicart";
 const Inner = styled.section`
-	width: 88%;
+	width: 100%;
 	display:flex;
 	justify-content: space-between;
 	align-items: center;
 	height: 80px;
-	
-	
+
 `;
 const Nav = styled.nav`
 	display:flex;
@@ -28,7 +27,7 @@ const Nav = styled.nav`
 
 const NavItem = styled.ul`
 	display:flex;
-	justify-items:flex-start;
+	justify-content:space-between;
 	gap: 42px;
 	list-style-type: none;
 	padding-top: 20px;
@@ -42,6 +41,7 @@ const NavItem = styled.ul`
 
 const StyledLink = styled(Link)`
 	text-decoration: none;
+	width:16px;
 	font-family: ${FONTS.FAMILIES.RALEWAY};
 	color: ${COLORS.BLACK};
 	padding-bottom: 30px;
@@ -139,10 +139,11 @@ class Navigation extends Component {
 			
 				</LogoView>
 				
-				<Actions/>
-				<CurrencySwitcher/>
+				<Actions>
+				<CurrencySwitcher/>				
 				<CartIcon toggleMinicart={this.toggleMinicart} />
-				
+				</Actions>
+
 				{this.state.displayMinicart && (
 					<Modal onClick={this.closeModal}>
 						<Minicart />

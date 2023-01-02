@@ -8,6 +8,7 @@ const CartImage = styled.img`
 	height: 20px;
 	width: 20px;
 	color: ${COLORS.EMPTY_BASKETbg.BLACK};
+	
 `;
 const IconWrapper = styled.div`
 	position: relative;
@@ -21,8 +22,9 @@ const IconWrapper = styled.div`
 		justify-content: center;
 		align-items: center;
 		border-radius: 50%;
-		top: -22px;
-		right: -22px;
+		top: -19px;
+		right:-19px;
+		
 	}
 `;
 class CartIcon extends Component {

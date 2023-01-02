@@ -6,9 +6,9 @@ import { setProductDetails } from "../../actions/productActions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 const CategoryLayout = styled.main`
-	/* box-sizing: border-box; */
 	overflow: hidden;
 	color: ${COLORS.BLACK};
+    min-height:0;
 	width: 88%;
 	margin: 0 auto;
 	
@@ -64,7 +64,7 @@ const StyledLink = styled(Link)`
 		opacity: 1;
 	}
 `;
-stly
+
 
 
 const StyledFigure = styled.figure``;

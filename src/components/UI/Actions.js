@@ -4,8 +4,8 @@ import CartIcon from "./CartIcon";
 import CurrencySwitcher from "./CurrencySwitcher";
 const Wrapper = styled.div`
 	display: flex;
-	gap: 20px;
-	justify-content: flex-start;
+	gap: 15px;
+	justify-content: flex-end;
 	align-items: center;
 	flex: 1;
 `;
