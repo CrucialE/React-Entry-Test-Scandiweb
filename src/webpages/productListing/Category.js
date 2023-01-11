@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import styled from "styled-components/macro";
 import { COLORS, FONTS } from "../../components/constants";
@@ -47,7 +48,7 @@ const StyledLink = styled(Link)`
 	}
 `;
 const BagIcon = styled.img`
-	 
+	
 		position: absolute;
 		bottom: 46px;
 		right: 20px;
@@ -239,6 +240,13 @@ export class ProductItem extends Component {
 				onClick={(event) => {
 					event.preventDefault();
 					console.log(product.attributes);
+					if (product?.attributes.length > 0) {
+						//Select and set default attributes
+						// Add to cart
+					} else {
+						//Donot select and set attributes
+						//Add item to cart
+					}
 				}}
 			/>
 		);
@@ -306,4 +314,4 @@ const mapStateToProps = (state) => ({
 	...state,
 });
 const mapDispatchToProps = { setProductDetails };
-export default connect(mapStateToProps, mapDispatchToProps)(Category);
+export default connect(mapStateToProps, mapDispatchToProps)(Category)

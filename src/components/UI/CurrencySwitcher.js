@@ -5,10 +5,10 @@ import { switchCurrency } from "actions/currencyActions";
 import ChevrondownIconPath from "../../assets/icons/chevrondown.png";
 import { COLORS, FONTS } from "components/constants";
 const Wrapper = styled.div`
+	/* display:inline-block; */
 	position: relative;
 	cursor: pointer;
 	padding: 0 10px;
-	z-index:1001;
 `;
 const SelectWrapper = styled.span`
 	padding: 8px;
@@ -21,11 +21,12 @@ const CurrencySymbol = styled.span`
 `;
 const DropdownUl = styled.ul`
 	position: absolute;
-	padding-top: 16px;
-	/* margin-top: 10px; */
+	padding-top: 4px;
+	margin-top: 10px;
 	background: #fff;
 	z-index: 100;
-	${(props) => {return props.$currencyState
+	${(props) => {
+		return props.$currencyState
 			? css`
 					display: block;
 			  `
@@ -67,14 +68,14 @@ const ListItem = styled.li`
 	background: ${(props) => props.$bg};
 `;
 class CurrencySwitcher extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.wrapper = React.createRef();
 		this.currencyItem = React.createRef();
 		this.state = {
 			currencySwitch: false,
 			currencies: [],
-			currencyPosition: 0,
+			currencyPosition: props.currency,
 			selectedCurrency: {},
 		};
 	}
@@ -82,21 +83,24 @@ class CurrencySwitcher extends Component {
 	componentDidMount() {
 		document.addEventListener("mousedown", this.handleClickOutside);
 		document.addEventListener("mousedown", this.handleSelectedCurrency);
-		fetch(`http://localhost:4000/graphql` || `${process.env.REACT_APP_URL}`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-			},
-			body: JSON.stringify({
-				query: ` {
+		fetch(
+			"http://localhost:4000/graphql" || `${process.env.REACT_APP_URL}`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+				},
+				body: JSON.stringify({
+					query: ` {
 				currencies {
 					label,
 					symbol
 				}
 				}`,
-			}),
-		})
+				}),
+			}
+		)
 			.then((response) => response.json())
 			.then((result) => {
 				this.setState({ currencies: result.data.currencies });
@@ -137,12 +141,11 @@ class CurrencySwitcher extends Component {
 	};
 
 	render() {
+		console.log(this.props);
 		const { currencies } = this.state;
 		return (
 			<Wrapper ref={this.wrapper} onClick={this.toggleCurrencySwitcher}>
-				<CurrencySymbol>
-				 {this.state.selectedCurrency.symbol}
-				</CurrencySymbol>
+				<CurrencySymbol>{this.props.symbol}</CurrencySymbol>
 				<SelectWrapper>
 					<ChevronIcon
 						src={ChevrondownIconPath}
@@ -167,7 +170,9 @@ class CurrencySwitcher extends Component {
 	}
 }
 
-const mapStateToProps = (store) => ({...store.currencyReducer});
+const mapStateToProps = (store) => ({
+	...store.currencyReducer,
+});
 
 const mapDispatchToProps = { switchCurrency };
 
