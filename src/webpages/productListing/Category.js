@@ -20,7 +20,7 @@ const CategoryName = styled.h1`
 	font-style: normal;
 	line-height: 67.2px;
 	text-transform: capitalize;
-	margin-bottom: 103px;
+	margin: 80px 0 103px 0;
 `;
 const ProductList = styled.div`
 	display: flex;
@@ -45,12 +45,9 @@ const StyledLink = styled(Link)`
 		box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
 		transition: box-shadow 400ms ease-in-out;
 	}
-
-	&::after {
-		content: "";
-		opacity: 0;
-		background-image: url(${CircleCartIcon});
-		background-size: cover;
+`;
+const BagIcon = styled.img`
+	 
 		position: absolute;
 		bottom: 46px;
 		right: 20px;
@@ -58,15 +55,13 @@ const StyledLink = styled(Link)`
 		height: 52px;
 		transition: opacity 500ms ease-in-out;
 		z-index: 15;
-	}
-	&:hover::after {
-		opacity: 1;
-	}
+	
 `;
 const OutOfStockLink = styled(Link)`
 	display: flex;
 	flex-direction: column;
 	position: relative;
+	text-align: center;
 	height: 444px;
 	padding: 16px;
 	box-sizing: border-box;
@@ -79,7 +74,7 @@ const OutOfStockLink = styled(Link)`
 		transition: box-shadow 400ms ease-in-out;
 	}
 
-	&::after {
+	/* &::after {
 		content: "";
 		opacity: 0;
 		background-image: url(${CircleCartIcon});
@@ -94,12 +89,13 @@ const OutOfStockLink = styled(Link)`
 	}
 	&:hover::after {
 		opacity: 1;
-	}
+	} */
 `;
 
 const StyledFigure = styled.figure``;
 
 const ProductImage = styled.img`
+	position: relative;
 	height: 354px;
 	width: 330px;
 	object-fit: cover;
@@ -122,6 +118,13 @@ const PriceTag = styled.h5`
 	font-weight: 500;
 	font-size: 18px;
 	color: #1d1f22;
+`;
+
+const StockOutTitle = styled.h1`
+	font-family: ${FONTS.FAMILIES.RALEWAY};
+	font-size: ${FONTS.SIZES.TWENTY_FOUR};
+	font-weight: ${FONTS.WEIGHTS.MEDIUM};
+	text-transform: uppercase;
 `;
 class Category extends Component {
 	state = {
@@ -193,7 +196,6 @@ class Category extends Component {
 	}
 
 	render() {
-		// console.log(this.props);
 		const { currency, symbol } = this.props.currencyReducer;
 		const { name, products } = this.state.selectedCategory;
 		return (
@@ -203,6 +205,7 @@ class Category extends Component {
 					{products?.length > 0 &&
 						products.map((product) => (
 							<ProductItem
+								hovered={this.state.hovered}
 								key={product.id}
 								id={product.id}
 								product={product}
@@ -220,33 +223,59 @@ class Category extends Component {
 export class ProductItem extends Component {
 	constructor(props) {
 		super(props);
-		// console.log(this.props.product.name, "=", this.props.product.inStock);
+
+		this.state = {
+			hovered: false,
+		};
 	}
+
 	render() {
 		const { id, product, category, setProductDetails, currency, symbol } =
 			this.props;
+
+		const bagIcon = this.state.hovered && (
+			<BagIcon
+				src={CircleCartIcon}
+				onClick={(event) => {
+					event.preventDefault();
+					console.log(product.attributes);
+				}}
+			/>
+		);
+
 		if (product?.inStock)
 			return (
-				<StyledLink
-					to={`/${category}/${id}`}
-					onClick={() => setProductDetails({ category, ...product })}>
-					<StyledFigure>
-						<ProductImage
-							src={product.gallery[0]}
-							alt={product.name}
-						/>
-					</StyledFigure>
-					<Title>
-						{product.name}
-						<span>{product.brand}</span>
-					</Title>
-					<PriceTag>
-						<strong>
-							{product.prices[currency].currency.symbol}
-							{product.prices[currency].amount}
-						</strong>
-					</PriceTag>
-				</StyledLink>
+				<div
+					onMouseEnter={() => {
+						this.setState({ hovered: true });
+					}}
+					onMouseLeave={() => {
+						this.setState({ hovered: false });
+					}}>
+					<StyledLink
+						to={`/${category}/${id}`}
+						onClick={() =>
+							setProductDetails({ category, ...product })
+						}>
+						<StyledFigure>
+							<ProductImage
+								src={product.gallery[0]}
+								alt={product.name}
+							/>
+						</StyledFigure>
+						<Title>
+							{product.name}
+							<span>{product.brand}</span>
+						</Title>
+						<PriceTag>
+							<strong>
+								{product.prices[currency].currency.symbol}
+								{product.prices[currency].amount}
+							</strong>
+						</PriceTag>
+						{bagIcon}
+					</StyledLink>
+				</div>
 			);
 
 		return (
@@ -254,8 +283,9 @@ export class ProductItem extends Component {
 				to={`/${category}/${id}`}
 				onClick={() => setProductDetails({ category, ...product })}>
 				<StyledFigure>
-					<ProductImage src={product.gallery[0]} alt={product.name} />
-					<h1>Out of Stock</h1>
+					<ProductImage
+						src={product.gallery[0]}
+						alt={product.name}></ProductImage>
 				</StyledFigure>
 				<Title>
 					{product.name}
@@ -267,6 +297,7 @@ export class ProductItem extends Component {
 						{product.prices[currency].amount}
 					</strong>
 				</PriceTag>
+				<StockOutTitle>Out of Stock</StockOutTitle>
 			</OutOfStockLink>
 		);
 	}
