@@ -141,7 +141,7 @@ class CurrencySwitcher extends Component {
 	};
 
 	render() {
-		console.log(this.props);
+		// console.log(this.props);
 		const { currencies } = this.state;
 		return (
 			<Wrapper ref={this.wrapper} onClick={this.toggleCurrencySwitcher}>

@@ -48,7 +48,6 @@ const StyledLink = styled(Link)`
 	}
 `;
 const BagIcon = styled.img`
-	
 		position: absolute;
 		bottom: 46px;
 		right: 20px;
@@ -75,22 +74,7 @@ const OutOfStockLink = styled(Link)`
 		transition: box-shadow 400ms ease-in-out;
 	}
 
-	/* &::after {
-		content: "";
-		opacity: 0;
-		background-image: url(${CircleCartIcon});
-		background-size: cover;
-		position: absolute;
-		bottom: 46px;
-		right: 20px;
-		width: 52px;
-		height: 52px;
-		transition: opacity 500ms ease-in-out;
-		z-index: 15;
-	}
-	&:hover::after {
-		opacity: 1;
-	} */
+	
 `;
 
 const StyledFigure = styled.figure``;
@@ -122,6 +106,10 @@ const PriceTag = styled.h5`
 `;
 
 const StockOutTitle = styled.h1`
+    position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
 	font-family: ${FONTS.FAMILIES.RALEWAY};
 	font-size: ${FONTS.SIZES.TWENTY_FOUR};
 	font-weight: ${FONTS.WEIGHTS.MEDIUM};
@@ -231,12 +219,12 @@ export class ProductItem extends Component {
 	}
 
 	render() {
+		console.log(this.state.hovered)
 		const { id, product, category, setProductDetails, currency, symbol } =
 			this.props;
 
 		const bagIcon = this.state.hovered && (
-			<BagIcon
-				src={CircleCartIcon}
+			<BagIcon src={CircleCartIcon}
 				onClick={(event) => {
 					event.preventDefault();
 					console.log(product.attributes);
