@@ -4,22 +4,15 @@ import { FONTS, COLORS } from "../constants";
 import { connect } from "react-redux";
 import { addToQuantity, reduceToQuantity } from "actions/cartActions";
 const MiniCartLayout = styled.aside`
-	width:325px;
-	max-height:90vh;
-	overflow-y:auto;
-	top:78px;
-	scroll-behavior:smooth;
-	display: flex;
-	position:absolute;
-	top:0;
-	right:78px;
-	flex-direction: column;
+	position: absolute;
+	width: 325px;
+	max-height: 600px;
+	right: 78px;
 	color: ${COLORS.BLACK};
 	background-color: ${COLORS.WHITE};
 	font-size: ${FONTS.SIZES.TWENTY_FOUR};
-	padding:32px 16px;
-	
-	
+	padding: 32px 16px;
+	overflow-y: auto;
 `;
 
 const Title = styled.h3`
@@ -97,15 +90,13 @@ const Size = styled.div`
 const ImageContainer = styled.div`
 	position: relative;
 	flex: 1;
-	width: 121px;
-	height:190px;
-	
-	`;
+	width: 325px;
+	height: auto;
+`;
 const CartImage = styled.img`
 	flex: 1;
 	width: 121px;
 	height: 190px;
-
 `;
 
 const Color = styled.div`
@@ -163,7 +154,6 @@ const CheckOutTotal = styled.div`
 	font-size: ${FONTS.SIZES.SIXTEEN};
 	font-weight: ${FONTS.WEIGHTS.MEDIUM};
 	line-height: 18px;
-	margin:32px 0 32px 0;
 	> span {
 		font-size: ${FONTS.SIZES.SIXTEEN};
 		font-weight: ${FONTS.WEIGHTS.LARGEST};
@@ -174,7 +164,6 @@ const ButtonContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-end;
-	margin-bottom:32px;
 `;
 const ViewBag = styled.button`
 	width: 140px;
@@ -274,15 +263,14 @@ class Minicart extends Component {
 									</strong>
 								</PriceLabel>
 								{item?.attributes?.length > 0 &&
-									item.attributes.map((attribute) => (
-										<>
+									item.attributes.map((attribute, index) => (
+										<div key={index.toString()}>
 											{attribute?.name === "Size" && (
 												<Size>
 													<p>Size:</p>
 													{attribute.items.map(
 														(size) => (
 															<span
-																id={size}
 																key={
 																	size.value
 																}>
@@ -298,6 +286,9 @@ class Minicart extends Component {
 													{attribute.items.map(
 														(color) => (
 															<span
+																key={
+																	color.value
+																}
 																style={{
 																	backgroundColor:
 																		color.value,
@@ -306,7 +297,7 @@ class Minicart extends Component {
 													)}
 												</Color>
 											)}
-										</>
+										</div>
 									))}
 							</ItemDescription>
 							<QuantityIcons>
