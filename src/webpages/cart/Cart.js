@@ -3,6 +3,7 @@ import styled from "styled-components/macro";
 import { FONTS, COLORS } from "../../components/constants";
 import { connect } from "react-redux";
 import NextCaret from "../../assets/icons/next.png";
+import PreviousCaret from "../../assets/icons/previous.png";
 import { addToQuantity, reduceToQuantity } from "../../actions/cartActions";
 import HeroSlider, { Slide } from "hero-slider";
 
@@ -75,6 +76,9 @@ const Size = styled.p`
 			color: ${COLORS.WHITE};
 		}
 	}
+	> span.selected {
+		border-color: red;
+	}
 `;
 const Color = styled.div`
 	margin-top: 7px;
@@ -93,6 +97,9 @@ const Color = styled.div`
 		text-align: center;
 		border-radius: 1px;
 		cursor: pointer;
+	}
+	> span.selected {
+		border-color: red;
 	}
 `;
 
@@ -138,7 +145,7 @@ const ImageContainer = styled.div`
 		cursor: pointer;
 	}
 	.hero-slider-previous-container > .hero-slider-previous-button {
-		background-image: url(${NextCaret});
+		background-image: url(${PreviousCaret});
 	}
 	.hero-slider-next-container > .hero-slider-next-button {
 		background-image: url(${NextCaret});
@@ -254,7 +261,11 @@ class Cart extends Component {
 													{attribute.items.map(
 														(size) => (
 															<span
-																id={size}
+																className={
+																	size?.selected &&
+																	"selected"
+																}
+																id={size.value}
 																key={
 																	size.value
 																}>
@@ -270,6 +281,10 @@ class Cart extends Component {
 													{attribute.items.map(
 														(color) => (
 															<span
+																className={
+																	color?.selected &&
+																	"selected"
+																}
 																style={{
 																	backgroundColor:
 																		color.value,

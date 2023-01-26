@@ -1,9 +1,10 @@
-
 import React, { Component } from "react";
 import styled from "styled-components/macro";
 import { COLORS, FONTS } from "../../components/constants";
 import CircleCartIcon from "../../assets/icons/Circle-Cart-Icon.png";
 import { setProductDetails } from "../../actions/productActions";
+import { addToCart } from "../../actions/cartActions";
+import { setDefaultAttributes } from "components/utils/functions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 const CategoryLayout = styled.main`
@@ -48,14 +49,13 @@ const StyledLink = styled(Link)`
 	}
 `;
 const BagIcon = styled.img`
-		position: absolute;
-		bottom: 46px;
-		right: 20px;
-		width: 52px;
-		height: 52px;
-		transition: opacity 500ms ease-in-out;
-		z-index: 15;
-	
+	position: absolute;
+	bottom: 46px;
+	right: 20px;
+	width: 52px;
+	height: 52px;
+	transition: opacity 500ms ease-in-out;
+	z-index: 15;
 `;
 const OutOfStockLink = styled(Link)`
 	display: flex;
@@ -73,8 +73,6 @@ const OutOfStockLink = styled(Link)`
 		box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
 		transition: box-shadow 400ms ease-in-out;
 	}
-
-	
 `;
 
 const StyledFigure = styled.figure``;
@@ -106,10 +104,11 @@ const PriceTag = styled.h5`
 `;
 
 const StockOutTitle = styled.h1`
-    position:absolute;
-	top:50%;
-	left:50%;
-	transform:translate(-50%, -50%);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	line-height: 160%;
 	font-family: ${FONTS.FAMILIES.RALEWAY};
 	font-size: ${FONTS.SIZES.TWENTY_FOUR};
 	font-weight: ${FONTS.WEIGHTS.MEDIUM};
@@ -202,6 +201,7 @@ class Category extends Component {
 								currency={currency}
 								symbol={symbol}
 								setProductDetails={this.props.setProductDetails}
+								addToCart={this.props.addToCart}
 							/>
 						))}
 				</ProductList>
@@ -219,22 +219,22 @@ export class ProductItem extends Component {
 	}
 
 	render() {
-		console.log(this.state.hovered)
-		const { id, product, category, setProductDetails, currency, symbol } =
-			this.props;
-
+		const {
+			id,
+			product,
+			category,
+			setProductDetails,
+			currency,
+			symbol,
+			addToCart,
+		} = this.props;
 		const bagIcon = this.state.hovered && (
-			<BagIcon src={CircleCartIcon}
+			<BagIcon
+				src={CircleCartIcon}
 				onClick={(event) => {
 					event.preventDefault();
-					console.log(product.attributes);
-					if (product?.attributes.length > 0) {
-						//Select and set default attributes
-						// Add to cart
-					} else {
-						//Donot select and set attributes
-						//Add item to cart
-					}
+					const theProduct = setDefaultAttributes(product);
+					addToCart(theProduct);
 				}}
 			/>
 		);
@@ -301,5 +301,5 @@ export class ProductItem extends Component {
 const mapStateToProps = (state) => ({
 	...state,
 });
-const mapDispatchToProps = { setProductDetails };
-export default connect(mapStateToProps, mapDispatchToProps)(Category)
+const mapDispatchToProps = { setProductDetails, addToCart };
+export default connect(mapStateToProps, mapDispatchToProps)(Category);
