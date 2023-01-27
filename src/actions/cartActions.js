@@ -1,4 +1,5 @@
-import { ADD_TO_CART, ADD_TO_QUANTITY, REDUCE_TO_QUANTITY } from "./types";
+import { ADD_TO_CART, ADD_TO_QUANTITY, REDUCE_TO_QUANTITY, 	UPDATE_CART,
+} from "./types";
 
 export const addToCart = (item) => {
 	const newItem = { ...item, quantity: 1, setAttributes: [] };
@@ -25,5 +26,12 @@ export const reduceToQuantity = (index) => {
 			item_position: index,
 			quantity: 1,
 		},
+	};
+};
+
+export const updateCart = (item, position) => {
+	return {
+		type: UPDATE_CART,
+		payload: { item, position },
 	};
 };

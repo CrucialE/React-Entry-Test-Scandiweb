@@ -3,9 +3,13 @@ import styled from "styled-components/macro";
 import { FONTS, COLORS } from "../../components/constants";
 import { connect } from "react-redux";
 import NextCaret from "../../assets/icons/next.png";
-import PreviousCaret from "../../assets/icons/previous.png";
-import { addToQuantity, reduceToQuantity } from "../../actions/cartActions";
+import {
+	addToQuantity,
+	reduceToQuantity,
+	updateCart,
+} from "../../actions/cartActions";
 import HeroSlider, { Slide } from "hero-slider";
+import { setAnAttribute } from "components/utils/functions";
 
 const CartDisplayLayout = styled.section`
 	width: 88%;
@@ -145,7 +149,7 @@ const ImageContainer = styled.div`
 		cursor: pointer;
 	}
 	.hero-slider-previous-container > .hero-slider-previous-button {
-		background-image: url(${PreviousCaret});
+		background-image: url(${NextCaret});
 	}
 	.hero-slider-next-container > .hero-slider-next-button {
 		background-image: url(${NextCaret});
@@ -259,7 +263,10 @@ class Cart extends Component {
 												<Size>
 													<p>SIZE:</p>
 													{attribute.items.map(
-														(size) => (
+														(
+															size,
+															sizePosition
+														) => (
 															<span
 																className={
 																	size?.selected
@@ -267,9 +274,21 @@ class Cart extends Component {
 																		: ""
 																}
 																id={size.value}
-																key={
-																	size.value
-																}>
+																key={size.value}
+																onClick={() => {
+																	item[
+																		"attributes"
+																	] =
+																		setAnAttribute(
+																			item,
+																			attribute.name,
+																			sizePosition
+																		);
+																	this.props.updateCart(
+																		item,
+																		index
+																	);
+																}}>
 																{size.value}
 															</span>
 														)
@@ -280,7 +299,10 @@ class Cart extends Component {
 												<Color>
 													<p>COLOR:</p>
 													{attribute.items.map(
-														(color) => (
+														(
+															color,
+															colorPosition
+														) => (
 															<span
 																className={
 																	color?.selected
@@ -293,6 +315,20 @@ class Cart extends Component {
 																style={{
 																	backgroundColor:
 																		color.value,
+																}}
+																onClick={() => {
+																	item[
+																		"attributes"
+																	] =
+																		setAnAttribute(
+																			item,
+																			attribute.name,
+																			colorPosition
+																		);
+																	this.props.updateCart(
+																		item,
+																		index
+																	);
 																}}></span>
 														)
 													)}
@@ -379,5 +415,5 @@ const mapStateToProps = (state) => ({
 	...state.currencyReducer,
 });
 
-const mapDispatchToProps = { addToQuantity, reduceToQuantity };
+const mapDispatchToProps = { addToQuantity, reduceToQuantity, updateCart };
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
