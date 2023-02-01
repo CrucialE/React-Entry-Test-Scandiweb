@@ -81,7 +81,7 @@ const Size = styled.aside`
 		}
 	}
 	> span.selected {
-		border-color: red;
+		border-color: ${COLORS.BORDERS.GREEN};
 	}
 `;
 const Color = styled.div`
@@ -103,7 +103,7 @@ const Color = styled.div`
 		cursor: pointer;
 	}
 	> span.selected {
-		border-color: red;
+		border-color: ${COLORS.BORDERS.GREEN};
 	}
 `;
 
@@ -159,12 +159,12 @@ const ImageContainer = styled.div`
 		display: none;
 	}
 `;
-const CartImage = styled.img`
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	z-index: 1;
-`;
+// const CartImage = styled.img`
+// 	position: absolute;
+// 	width: 100%;
+// 	height: 100%;
+// 	z-index: 1;
+// `;
 
 const CheckOutDetails = styled.div`
 	> p {

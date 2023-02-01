@@ -144,7 +144,7 @@ const Size = styled.aside`
 		color: ${COLORS.WHITE};
 	}
 	span.selected {
-		border: 1px solid red;
+		border-color: ${COLORS.BORDERS.GREEN};
 	}
 `;
 const ColorSwatch = styled.div`
@@ -165,7 +165,7 @@ const ColorSwatch = styled.div`
 		cursor: pointer;
 	}
 	> span.selected {
-		border: 1px solid red;
+		border-color: ${COLORS.BORDERS.GREEN};
 	}
 `;
 

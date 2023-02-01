@@ -94,7 +94,7 @@ const Size = styled.div`
 	}
 
 	> span.selected {
-		border-color: red;
+		border-color: ${COLORS.BORDERS.GREEN};
 	}
 `;
 const ImageContainer = styled.div`
@@ -128,7 +128,7 @@ const Color = styled.div`
 		cursor: pointer;
 	}
 	> span.selected {
-		border-color: red;
+		border-color: ${COLORS.BORDERS.GREEN};
 	}
 `;
 const QuantityIcons = styled.div`

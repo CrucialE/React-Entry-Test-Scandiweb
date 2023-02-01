@@ -11,6 +11,7 @@ export const  COLORS = {
 
     BORDERS:{
         BLACK:'#000000',
+        GREEN: '#5ECE7B'
     },
 
     SPACERbg:{
@@ -20,6 +21,8 @@ export const  COLORS = {
     SELECTORbg:{
         GRAY:'#EEEEEE'
     },
+
+
     
     PRODUCT_SWATCHES: {
         BLACK: '#2B2B2B',
