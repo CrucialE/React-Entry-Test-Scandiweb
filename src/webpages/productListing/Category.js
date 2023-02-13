@@ -119,69 +119,17 @@ class Category extends Component {
 		super(props);
 	}
 	state = {
-		category: {},
+		category: null,
 	};
 
-	componentDidMount() {
-
-		const query = `query getProductsByCategory($category: CategoryInput!) {
-			category(input: $category) {
-			  name
-			  products {
-				id
-				name
-				description
-				brand
-				gallery
-				inStock
-				attributes {
-					name
-					items {
-						value
-					}
-				}
-				prices {
-					currency {
-						symbol
-						label
-					}
-					amount
-				}
-			}
-		}
-	}
-	`;
-		const variables = {
-			category: { title: this?.props?.params?.category },
-		};
-
-		fetch(
-			"http://localhost:4000/graphql" || `${process.env.REACT_APP_URL}`,
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Accept: "application/json",
-				},
-				body: JSON.stringify({
-					query,
-					variables,
-				}),
-			}
-		)
-			.then((response) => response.json())
-			.then((results) => {
-				this.setState({ category: results.data.category });
-			});
-	}
-
+	
 	render() {
 		const { currency, symbol } = this.props.currencyReducer;
-		const CATEGORY = this.state.category;
+		let CATEGORY = this.props.productData;
         console.log(CATEGORY)
 		return (
 			<CategoryLayout>
-				<CategoryName>ALL</CategoryName>
+				<CategoryName>All</CategoryName>
 				<ProductList>
 					{CATEGORY?.products?.length > 0 &&
 						CATEGORY?.products.map((product) => (

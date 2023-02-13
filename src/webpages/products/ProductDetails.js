@@ -209,7 +209,7 @@ class ProductDetails extends React.Component {
 				brand
 			}
 		}`;
-		const variables = { slug: this?.props?.params?.id };
+		const variables = { slug: this.props.slug };
 		fetch(
 			`http://localhost:4000/graphql` || `${process.env.REACT_APP_URL}`,
 			{

@@ -177,7 +177,7 @@ class Home extends Component {
 		const { name, products } = this.state.category;
 		return (
 			<CategoryLayout>
-				<CategoryName>ALL</CategoryName>
+				<CategoryName></CategoryName>
 				<ProductList>
 					{products?.length > 0 &&
 						products.map((product) => (

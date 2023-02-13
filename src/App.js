@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Provider } from "react-redux";
-import { Switch,Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 // import ElementWrapper from "./components/utils/withRouter";
 import HeaderWrapper from "./components/Header";
 import GlobalStyle from "components/GlobalStyles";
@@ -19,17 +19,11 @@ class App extends Component {
 				<GlobalStyle />
 				
 					<HeaderWrapper />
-					
-					<Switch>
-						<Route exact path="/" component={Category}/>
-						<Route path="/:category" component={Home} />
-						<Route path="/:category/:id" component={ProductDetails} />
-						<Route path="/cart"   component= {Cart} />
-
-															
-					</Switch>
-					
-				
+								
+						<Route path ="/" exact component={Home}/>
+						<Route path ="/:category" exact component={Category} />
+						<Route path = "/category/:product/:id" exact component={ProductDetails}/>
+						<Route  path ="/cart" exact component={Cart} />
 				
 			</Provider>
 		);
