@@ -15,7 +15,7 @@ const GlobalStyle = createGlobalStyle`
     min-height:100vh;
     background:${COLORS.BACKGROUND.WHITE};
     color:${COLORS.BLACK};
-    font-family:${FONTS.FAMILIES.RALEWAY} 'Sans-Serif';
+    font-family:${FONTS.FAMILIES.RALEWAY};
        }
 `;
  

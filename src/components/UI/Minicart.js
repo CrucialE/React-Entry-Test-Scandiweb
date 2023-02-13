@@ -14,6 +14,7 @@ const MiniCartLayout = styled.aside`
 	width: 325px;
 	max-height: 600px;
 	right: 78px;
+	
 	color: ${COLORS.BLACK};
 	background-color: ${COLORS.WHITE};
 	font-size: ${FONTS.SIZES.TWENTY_FOUR};

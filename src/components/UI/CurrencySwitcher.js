@@ -5,10 +5,10 @@ import { switchCurrency } from "actions/currencyActions";
 import ChevrondownIconPath from "../../assets/icons/chevrondown.png";
 import { COLORS, FONTS } from "components/constants";
 const Wrapper = styled.div`
-	/* display:inline-block; */
 	position: relative;
 	cursor: pointer;
 	padding: 0 10px;
+	z-index:1001;
 `;
 const SelectWrapper = styled.span`
 	padding: 8px;

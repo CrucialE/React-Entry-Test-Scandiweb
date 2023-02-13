@@ -170,9 +170,6 @@ const ColorSwatch = styled.div`
 `;
 
 class ProductDetails extends React.Component {
-	constructor(props) {
-		super(props);
-	}
 	state = {
 		selectedColor: "",
 		selectedSize: "",
@@ -228,7 +225,7 @@ class ProductDetails extends React.Component {
 
 	render() {
 		const PRODUCT = this.state.product || this.props.product;
-		const { currency, symbol } = this.props;
+		const { currency} = this.props;
 		if (PRODUCT?.name)
 			return (
 				<>
@@ -358,7 +355,7 @@ class ProductDetails extends React.Component {
 
 							{PRODUCT?.inStock ? (
 								<AddToCartBtn
-									to="/cart"
+									to="/shopping-cart"
 									onClick={() => {
 										const theProduct =
 											setDefaultAttributes(PRODUCT);

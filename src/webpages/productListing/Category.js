@@ -115,9 +115,6 @@ const StockOutTitle = styled.h1`
 	text-transform: uppercase;
 `;
 class Category extends Component {
-	constructor(props) {
-		super(props);
-	}
 	state = {
 		category: null,
 	};
@@ -126,10 +123,9 @@ class Category extends Component {
 	render() {
 		const { currency, symbol } = this.props.currencyReducer;
 		let CATEGORY = this.props.productData;
-        console.log(CATEGORY)
 		return (
 			<CategoryLayout>
-				<CategoryName>All</CategoryName>
+				<CategoryName>{CATEGORY?.name}</CategoryName>
 				<ProductList>
 					{CATEGORY?.products?.length > 0 &&
 						CATEGORY?.products.map((product) => (

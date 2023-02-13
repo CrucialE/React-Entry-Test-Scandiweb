@@ -175,9 +175,10 @@ class Home extends Component {
 	render() {
 		const { currency, symbol } = this.props.currencyReducer;
 		const { name, products } = this.state.category;
+		console.log(this.props)
 		return (
 			<CategoryLayout>
-				<CategoryName></CategoryName>
+				<CategoryName>{name}</CategoryName>
 				<ProductList>
 					{products?.length > 0 &&
 						products.map((product) => (
@@ -214,7 +215,6 @@ export class ProductItem extends Component {
 			category,
 			setProductDetails,
 			currency,
-			symbol,
 			addToCart,
 		} = this.props;
 		const bagIcon = this.state.hovered && (
