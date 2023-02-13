@@ -175,7 +175,6 @@ class Home extends Component {
 	render() {
 		const { currency, symbol } = this.props.currencyReducer;
 		const { name, products } = this.state.category;
-		console.log(this.props)
 		return (
 			<CategoryLayout>
 				<CategoryName>{name}</CategoryName>
