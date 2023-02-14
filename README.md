@@ -8,9 +8,7 @@ These are the steps necessary to start this React-Entry-Test on your local compu
 
  It uses styled components(macro) which offers better readability of classes in debugging.
 
- The project uses the Node environment the npm run build depends on node modules and the source code provide has already ran 
-
- 1. npm install and npm run build.
+ The project uses the Node environment the npm run build depends on node modules and the source code provide has already ran:npm install and npm run build.
 
  So In this source code already contains a build/static folder which contain the Javascript and CSS files.
 
