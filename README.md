@@ -28,11 +28,13 @@ Then to serve do the following:
 
 1. npm install -g serve.This installs the server globally on your local machine.
 
- #NB :There is no need to run this command where the user has a static server installed globally on their pc.
+   #NB :There is no need to run this command where the user has a static server installed globally on their pc.
 
 
- 2.serve -s build
+2. serve -s build
 
-The run serve -s build ensures that the project starts out of the box.
+The run serve -s build serves and it will handle the rest.
+
+At this time the project must start right out of the box.
 
 Thank You!
