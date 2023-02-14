@@ -16,7 +16,7 @@ These are the steps necessary to start this React-Entry-Test on your local compu
 
 1. Download or pull the repo to local machine and open it in the code editor of choice.
 
-2. Ensure to also start the junior-react-endpoint server on another port:4000 
+2. Ensure to also start the # GraphQL endpoint for Junior Developer position in Scandiweb on another port:4000 
 
 ### Serving the Static Server 
 
