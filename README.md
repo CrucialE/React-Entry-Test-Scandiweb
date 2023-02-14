@@ -31,7 +31,7 @@ Then to serve do the following:
  #NB :There is no need to run this command where the user has a static server installed globally on their pc.
 
 
-2.serve -s build
+ 2.serve -s build
 
 The run serve -s build ensures that the project starts out of the box.
 
